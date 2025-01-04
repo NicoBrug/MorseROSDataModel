@@ -1,0 +1,1 @@
+#include "GeometryMsgs/Msg/ROSPoint32.h"

@@ -61,7 +61,7 @@ typedef struct sensor_msgs_msg_CameraInfo
   struct sensor_msgs_msg_RegionOfInterest roi;
 } sensor_msgs_msg_CameraInfo;
 
- extern const dds_topic_descriptor_t sensor_msgs_msg_CameraInfo_desc;
+ __declspec(dllimport) const dds_topic_descriptor_t sensor_msgs_msg_CameraInfo_desc;
 
 #define sensor_msgs_msg_CameraInfo__alloc() \
 ((sensor_msgs_msg_CameraInfo*) dds_alloc (sizeof (sensor_msgs_msg_CameraInfo)));

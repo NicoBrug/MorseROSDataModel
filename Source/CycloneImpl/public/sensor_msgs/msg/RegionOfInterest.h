@@ -24,7 +24,7 @@ typedef struct sensor_msgs_msg_RegionOfInterest
   bool do_rectify;
 } sensor_msgs_msg_RegionOfInterest;
 
- extern const dds_topic_descriptor_t sensor_msgs_msg_RegionOfInterest_desc;
+ __declspec(dllimport) const dds_topic_descriptor_t sensor_msgs_msg_RegionOfInterest_desc;
 
 #define sensor_msgs_msg_RegionOfInterest__alloc() \
 ((sensor_msgs_msg_RegionOfInterest*) dds_alloc (sizeof (sensor_msgs_msg_RegionOfInterest)));

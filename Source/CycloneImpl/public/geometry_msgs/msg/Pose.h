@@ -27,7 +27,7 @@ typedef struct geometry_msgs_msg_Pose
   struct geometry_msgs_msg_Quaternion orientation;
 } geometry_msgs_msg_Pose;
 
- extern const dds_topic_descriptor_t geometry_msgs_msg_Pose_desc;
+ __declspec(dllimport) const dds_topic_descriptor_t geometry_msgs_msg_Pose_desc; //work
 
 #define geometry_msgs_msg_Pose__alloc() \
 ((geometry_msgs_msg_Pose*) dds_alloc (sizeof (geometry_msgs_msg_Pose)));

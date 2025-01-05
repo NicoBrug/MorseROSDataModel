@@ -27,7 +27,7 @@ typedef struct geometry_msgs_msg_PointStamped
   struct geometry_msgs_msg_Point point;
 } geometry_msgs_msg_PointStamped;
 
- extern const dds_topic_descriptor_t geometry_msgs_msg_PointStamped_desc;
+ __declspec(dllimport) const dds_topic_descriptor_t geometry_msgs_msg_PointStamped_desc;
 
 #define geometry_msgs_msg_PointStamped__alloc() \
 ((geometry_msgs_msg_PointStamped*) dds_alloc (sizeof (geometry_msgs_msg_PointStamped)));

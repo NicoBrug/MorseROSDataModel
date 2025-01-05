@@ -27,7 +27,7 @@ typedef struct geometry_msgs_msg_PoseWithCovarianceStamped
   struct geometry_msgs_msg_PoseWithCovariance pose;
 } geometry_msgs_msg_PoseWithCovarianceStamped;
 
- extern const dds_topic_descriptor_t geometry_msgs_msg_PoseWithCovarianceStamped_desc;
+ __declspec(dllimport) const dds_topic_descriptor_t geometry_msgs_msg_PoseWithCovarianceStamped_desc;
 
 #define geometry_msgs_msg_PoseWithCovarianceStamped__alloc() \
 ((geometry_msgs_msg_PoseWithCovarianceStamped*) dds_alloc (sizeof (geometry_msgs_msg_PoseWithCovarianceStamped)));

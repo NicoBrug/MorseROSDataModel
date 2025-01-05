@@ -27,7 +27,7 @@ typedef struct geometry_msgs_msg_PoseStamped
   struct geometry_msgs_msg_Pose pose;
 } geometry_msgs_msg_PoseStamped;
 
- extern const dds_topic_descriptor_t geometry_msgs_msg_PoseStamped_desc;
+ __declspec(dllimport) const dds_topic_descriptor_t geometry_msgs_msg_PoseStamped_desc;
 
 #define geometry_msgs_msg_PoseStamped__alloc() \
 ((geometry_msgs_msg_PoseStamped*) dds_alloc (sizeof (geometry_msgs_msg_PoseStamped)));

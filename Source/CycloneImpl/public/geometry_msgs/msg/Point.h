@@ -24,7 +24,7 @@ typedef struct geometry_msgs_msg_Point
   double z;
 } geometry_msgs_msg_Point;
 
- extern const dds_topic_descriptor_t geometry_msgs_msg_Point_desc;
+ __declspec(dllimport) const dds_topic_descriptor_t geometry_msgs_msg_Point_desc;
 
 #define geometry_msgs_msg_Point__alloc() \
 ((geometry_msgs_msg_Point*) dds_alloc (sizeof (geometry_msgs_msg_Point)));

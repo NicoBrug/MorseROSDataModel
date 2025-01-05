@@ -30,7 +30,7 @@ typedef struct geometry_msgs_msg_PoseWithCovariance
   geometry_msgs_msg_double__36 covariance;
 } geometry_msgs_msg_PoseWithCovariance;
 
- extern const dds_topic_descriptor_t geometry_msgs_msg_PoseWithCovariance_desc;
+ __declspec(dllimport) const dds_topic_descriptor_t geometry_msgs_msg_PoseWithCovariance_desc;
 
 #define geometry_msgs_msg_PoseWithCovariance__alloc() \
 ((geometry_msgs_msg_PoseWithCovariance*) dds_alloc (sizeof (geometry_msgs_msg_PoseWithCovariance)));

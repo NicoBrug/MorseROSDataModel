@@ -29,7 +29,7 @@ typedef struct sensor_msgs_msg_NavSatStatus
   uint16_t service;
 } sensor_msgs_msg_NavSatStatus;
 
- extern const dds_topic_descriptor_t sensor_msgs_msg_NavSatStatus_desc;
+   __declspec(dllimport) const dds_topic_descriptor_t sensor_msgs_msg_NavSatStatus_desc;
 
 #define sensor_msgs_msg_NavSatStatus__alloc() \
 ((sensor_msgs_msg_NavSatStatus*) dds_alloc (sizeof (sensor_msgs_msg_NavSatStatus)));

@@ -39,7 +39,7 @@ typedef struct sensor_msgs_msg_NavSatFix
   uint8_t position_covariance_type;
 } sensor_msgs_msg_NavSatFix;
 
- extern const dds_topic_descriptor_t sensor_msgs_msg_NavSatFix_desc;
+  __declspec(dllimport) const dds_topic_descriptor_t sensor_msgs_msg_NavSatFix_desc;
 
 #define sensor_msgs_msg_NavSatFix__alloc() \
 ((sensor_msgs_msg_NavSatFix*) dds_alloc (sizeof (sensor_msgs_msg_NavSatFix)));

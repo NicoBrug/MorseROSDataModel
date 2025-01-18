@@ -112,6 +112,7 @@ public:
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSPointCloud2Callback, const FROSPointCloud2, Data);
 
+
 UCLASS(BlueprintType, Blueprintable)
 class MORSEROSDATAMODEL_API UPointCloud2_TopicProxy : public UTopicProxy
 {

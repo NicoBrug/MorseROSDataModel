@@ -41,5 +41,15 @@ public class CycloneImpl : ModuleRules
 			{
 			}
 			);
+		
+		if (Target.Platform == UnrealTargetPlatform.Win64)
+		{
+			PublicDefinitions.Add("PLATFORM_WINDOWS=1");
+		}
+		else if (Target.Platform == UnrealTargetPlatform.Linux)
+		{
+			PublicDefinitions.Add("PLATFORM_LINUX=1");
+			PublicDefinitions.Add("PLATFORM_WINDOWS=0");
+		}
 	}
 }

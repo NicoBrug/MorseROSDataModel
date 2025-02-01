@@ -4,7 +4,7 @@
   #define CYCLONE_ROS_EXPORT CYCLONE_ROS_API
 #else
   #if PLATFORM_WINDOWS
-  #define CYCLONE_ROS_EXPORT __declspec(dllexport)  // Windows
+  #define CYCLONE_ROS_EXPORT __declspec(dllimport)  // Windows
   #elif PLATFORM_LINUX || PLATFORM_MAC
   #define CYCLONE_ROS_EXPORT __attribute__((visibility("default")))  // Linux/Mac
   #else

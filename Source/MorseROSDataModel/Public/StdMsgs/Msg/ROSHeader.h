@@ -18,27 +18,15 @@
 
 #include "ROSHeader.generated.h"
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
 USTRUCT(Blueprintable)
 struct FROSHeader
 {
 	GENERATED_BODY()
 
-public:
-	/**
-	* @cond
-	*/
 	FROSHeader()
 	{
 
 	};
-	/**
-	 * @endcond
-	 */
 
     
 	UPROPERTY(EditAnywhere)
@@ -48,23 +36,6 @@ public:
 	FString FrameId;
     
 
-	/**
-	 * @cond
-	 */
-	void DDSToUE (const std_msgs_msg_Header& InData) 
-	{
-		Stamp.DDSToUE(InData.stamp);
-		ConvertUtils::DDSStringToUE( InData.frame_id, FrameId);
-	};
-
-	void UEToDDS (std_msgs_msg_Header& OutData) 
-	{
-		Stamp.UEToDDS(OutData.stamp);
-		ConvertUtils::UEStringToDDS(FrameId, OutData.frame_id );
-	};
-    
-	/**
-	 * @endcond
-	 */
+	void DDSToUE(const std_msgs_msg_Header& InData);
+	void UEToDDS(std_msgs_msg_Header& OutData);
 };
-/** @} */

@@ -22,53 +22,24 @@
 
 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
 USTRUCT(Blueprintable)
 struct FROSTransform
 {
     GENERATED_BODY()
 
-public:
-    /**
-    * @cond
-    */
     FROSTransform()
     {
 
     };
-    /**
-     * @endcond
-     */
 
     
-    UPROPERTY(EditAnywhere) 
+    UPROPERTY(EditAnywhere)
     FVector Translation;
     
     UPROPERTY(EditAnywhere)
     FQuat Rotation;
     
 
-    /**
-     * @cond
-     */
-    void DDSToUE (const geometry_msgs_msg_Transform& InData) 
-    {
-        ConvertUtils::DDSVectorToUE(InData.translation, Translation);
-        ConvertUtils::DDSQuaternionToUE(InData.rotation, Rotation);
-    };
-
-    void UEToDDS (geometry_msgs_msg_Transform& OutData) 
-    {
-        ConvertUtils::UEVectorToDDS(Translation, OutData.translation);
-        ConvertUtils::UEQuaternionToDDS(Rotation, OutData.rotation);
-    };
-    
-    /**
-     * @endcond
-     */
+    void DDSToUE(const geometry_msgs_msg_Transform& InData);
+    void UEToDDS(geometry_msgs_msg_Transform& OutData);
 };
-/** @} */

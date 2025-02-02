@@ -25,28 +25,15 @@
 
 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
 USTRUCT(Blueprintable)
 struct FROSJointState
 {
     GENERATED_BODY()
-
-public:
-    /**
-    * @cond
-    */
+    
     FROSJointState()
     {
 
     };
-    /**
-     * @endcond
-     */
-
     
     UPROPERTY(EditAnywhere)
     FROSHeader Header;
@@ -63,45 +50,11 @@ public:
     UPROPERTY(EditAnywhere)
     TArray<double> Effort;
     
-
-    /**
-     * @cond
-     */
-    void DDSToUE (const sensor_msgs_msg_JointState& InData) 
-    {
-        Header.DDSToUE(InData.header);
-        ConvertUtils::StrSequenceToTArray<char*, FString>(InData.name._buffer, Name, InData.name._length);
-        ConvertUtils::SequenceToTArray<double, double>(InData.position._buffer, Position, InData.position._length);
-        ConvertUtils::SequenceToTArray<double, double>(InData.velocity._buffer, Velocity, InData.velocity._length);
-        ConvertUtils::SequenceToTArray<double, double>(InData.effort._buffer, Effort, InData.effort._length);
-    };
-
-    void UEToDDS (sensor_msgs_msg_JointState& OutData) 
-    {
-        Header.UEToDDS(OutData.header);
-        OutData.name._length = Name.Num();
-        OutData.name._buffer = dds_sequence_string_allocbuf(Name.Num());
-        OutData.name._release = true;
-        ConvertUtils::StrTArrayToSequence<char*, FString>(Name, OutData.name._buffer, Name.Num());
-        OutData.position._length = Position.Num();
-        OutData.position._buffer = dds_sequence_double_allocbuf(Position.Num());
-        OutData.position._release = true;
-        ConvertUtils::TArrayToSequence<double, double>(Position, OutData.position._buffer, Position.Num());
-        OutData.velocity._length = Velocity.Num();
-        OutData.velocity._buffer = dds_sequence_double_allocbuf(Velocity.Num());
-        OutData.velocity._release = true;
-        ConvertUtils::TArrayToSequence<double, double>(Velocity, OutData.velocity._buffer, Velocity.Num());
-        OutData.effort._length = Effort.Num();
-        OutData.effort._buffer = dds_sequence_double_allocbuf(Effort.Num());
-        OutData.effort._release = true;
-        ConvertUtils::TArrayToSequence<double, double>(Effort, OutData.effort._buffer, Effort.Num());
-    };
     
-    /**
-     * @endcond
-     */
+    void DDSToUE(const sensor_msgs_msg_JointState& InData);
+    void UEToDDS(sensor_msgs_msg_JointState& OutData);
 };
-/** @} */
+
 
 
 
@@ -117,42 +70,19 @@ public:
     UPROPERTY(BlueprintAssignable)
     FROSJointStateCallback OnDataChanged;
 
-    virtual void Initialize() override {
-        Data = sensor_msgs_msg_JointState__alloc();
-    };
-
-    virtual void Terminate() override {
-        sensor_msgs_msg_JointState_free(Data, DDS_FREE_ALL);
-    };
-
-    UFUNCTION(BlueprintCallable)
-    void GetData(FROSJointState& Output)
-    {
-        Output.DDSToUE(*Data);
-    };
+    /** Begin implement TopicProxy Interface */
+    virtual void Initialize() override;
+    virtual void Terminate() override;
+    virtual const dds_topic_descriptor_t* GetTypeDesc() override;
+    virtual void* Get() override;
+    virtual void ExecuteMessageCallback() override;
+    /** End implement TopicProxy Interface */
 
     UFUNCTION(BlueprintCallable)
-    void SetData(FROSJointState Input)
-    {
-        Input.UEToDDS(*Data);
-    };
+    void GetData(FROSJointState& Output);
 
-    virtual void ExecuteMessageCallback() override
-    {
-        FROSJointState NewData;
-        NewData.DDSToUE(*Data);
-        OnDataChanged.Broadcast(NewData);
-    };
-
-    virtual void* Get() override
-    {
-        return Data;
-    };
-
-    virtual const dds_topic_descriptor_t* GetTypeDesc() override
-    {
-        return &sensor_msgs_msg_JointState_desc;
-    };
+    UFUNCTION(BlueprintCallable)
+    void SetData(FROSJointState Input);
 
 private:
     sensor_msgs_msg_JointState* Data;

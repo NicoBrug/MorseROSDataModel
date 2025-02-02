@@ -28,27 +28,15 @@
 
 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
 USTRUCT(Blueprintable)
 struct FROSPointCloud
 {
     GENERATED_BODY()
 
-public:
-    /**
-    * @cond
-    */
     FROSPointCloud()
     {
 
     };
-    /**
-     * @endcond
-     */
 
     
     UPROPERTY(EditAnywhere)
@@ -61,34 +49,9 @@ public:
     TArray<FROSChannelFloat32> Channels;
     
 
-    /**
-     * @cond
-     */
-    void DDSToUE (const sensor_msgs_msg_PointCloud& InData) 
-    {
-        Header.DDSToUE(InData.header);
-        ConvertUtils::SequenceToTArray<geometry_msgs_msg_Point32, FROSPoint32>(InData.points._buffer, Points, InData.points._length);
-        ConvertUtils::SequenceToTArray<sensor_msgs_msg_ChannelFloat32, FROSChannelFloat32>(InData.channels._buffer, Channels, InData.channels._length);
-    };
-
-    void UEToDDS (sensor_msgs_msg_PointCloud& OutData) 
-    {
-        Header.UEToDDS(OutData.header);
-        OutData.points._length = Points.Num();
-        OutData.points._buffer = dds_sequence_geometry_msgs_msg_Point32_allocbuf(Points.Num());
-        OutData.points._release = true;
-        ConvertUtils::TArrayToSequence<geometry_msgs_msg_Point32, FROSPoint32>(Points, OutData.points._buffer, Points.Num());
-        OutData.channels._length = Channels.Num();
-        OutData.channels._buffer = dds_sequence_sensor_msgs_msg_ChannelFloat32_allocbuf(Channels.Num());
-        OutData.channels._release = true;
-        ConvertUtils::TArrayToSequence<sensor_msgs_msg_ChannelFloat32, FROSChannelFloat32>(Channels, OutData.channels._buffer, Channels.Num());
-    };
-    
-    /**
-     * @endcond
-     */
+    void DDSToUE(const sensor_msgs_msg_PointCloud& InData);
+    void UEToDDS(sensor_msgs_msg_PointCloud& OutData);
 };
-/** @} */
 
 
 
@@ -99,47 +62,22 @@ class MORSEROSDATAMODEL_API UPointCloud_TopicProxy : public UTopicProxy
 {
     GENERATED_BODY()
 
-public:
-
     UPROPERTY(BlueprintAssignable)
     FROSPointCloudCallback OnDataChanged;
 
-    virtual void Initialize() override {
-        Data = sensor_msgs_msg_PointCloud__alloc();
-    };
-
-    virtual void Terminate() override {
-        sensor_msgs_msg_PointCloud_free(Data, DDS_FREE_ALL);
-    };
-
-    UFUNCTION(BlueprintCallable)
-    void GetData(FROSPointCloud& Output)
-    {
-        Output.DDSToUE(*Data);
-    };
+    /** Begin implement TopicProxy Interface */
+    virtual void Initialize() override;
+    virtual void Terminate() override;
+    virtual const dds_topic_descriptor_t* GetTypeDesc() override;
+    virtual void* Get() override;
+    virtual void ExecuteMessageCallback() override;
+    /** End implement TopicProxy Interface */
 
     UFUNCTION(BlueprintCallable)
-    void SetData(FROSPointCloud Input)
-    {
-        Input.UEToDDS(*Data);
-    };
+    void GetData(FROSPointCloud& Output);
 
-    virtual void ExecuteMessageCallback() override
-    {
-        FROSPointCloud NewData;
-        NewData.DDSToUE(*Data);
-        OnDataChanged.Broadcast(NewData);
-    };
-
-    virtual void* Get() override
-    {
-        return Data;
-    };
-
-    virtual const dds_topic_descriptor_t* GetTypeDesc() override
-    {
-        return &sensor_msgs_msg_PointCloud_desc;
-    };
+    UFUNCTION(BlueprintCallable)
+    void SetData(FROSPointCloud Input);
 
 private:
     sensor_msgs_msg_PointCloud* Data;

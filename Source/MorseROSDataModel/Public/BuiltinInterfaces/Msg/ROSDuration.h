@@ -14,27 +14,15 @@
 #include "builtin_interfaces/msg/Duration.h"
 #include "ROSDuration.generated.h" 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
 USTRUCT(Blueprintable)
 struct FROSDuration
 {
 	GENERATED_BODY()
 
-public:
-	/**
-	* @cond
-	*/
 	FROSDuration()
 	{
 
 	};
-	/**
-	 * @endcond
-	 */
 
     
 	UPROPERTY(EditAnywhere)
@@ -42,25 +30,8 @@ public:
     
 	UPROPERTY(EditAnywhere)
 	unsigned int Nanosec;
-    
 
-	/**
-	 * @cond
-	 */
-	void DDSToUE (const builtin_interfaces_msg_Duration& InData) 
-	{
-		Sec = InData.sec;
-		Nanosec = InData.nanosec;
-	};
-
-	void UEToDDS (builtin_interfaces_msg_Duration& OutData) 
-	{
-		OutData.sec = Sec;
-		OutData.nanosec = Nanosec;
-	};
-    
-	/**
-	 * @endcond
-	 */
+	
+	void DDSToUE(const builtin_interfaces_msg_Duration& InData);
+	void UEToDDS(builtin_interfaces_msg_Duration& OutData);
 };
-/** @} */

@@ -19,27 +19,15 @@
 
 #include "ROSTime.generated.h" 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
 USTRUCT(Blueprintable)
 struct FROSTime
 {
     GENERATED_BODY()
 
-public:
-    /**
-    * @cond
-    */
     FROSTime()
     {
 
     };
-    /**
-     * @endcond
-     */
 
     
     UPROPERTY(EditAnywhere)
@@ -49,28 +37,9 @@ public:
     unsigned int Nanosec;
     
 
-    /**
-     * @cond
-     */
-    void DDSToUE (const builtin_interfaces_msg_Time& InData) 
-    {
-        Sec = InData.sec;
-        Nanosec = InData.nanosec;
-    };
-
-    void UEToDDS (builtin_interfaces_msg_Time& OutData) 
-    {
-        OutData.sec = Sec;
-        OutData.nanosec = Nanosec;
-    };
-    
-    /**
-     * @endcond
-     */
+    void DDSToUE(const builtin_interfaces_msg_Time& InData);
+    void UEToDDS(builtin_interfaces_msg_Time& OutData);
 };
-/** @} */
-
-
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSTimeCallback, const FROSTime, Data);
 
@@ -79,47 +48,22 @@ class MORSEROSDATAMODEL_API UTime_TopicProxy : public UTopicProxy
 {
     GENERATED_BODY()
 
-public:
-
     UPROPERTY(BlueprintAssignable)
     FROSTimeCallback OnDataChanged;
 
-    virtual void Initialize() override {
-        Data = builtin_interfaces_msg_Time__alloc();
-    };
-
-    virtual void Terminate() override {
-        builtin_interfaces_msg_Time_free(Data, DDS_FREE_ALL);
-    };
-
-    UFUNCTION(BlueprintCallable)
-    void GetData(FROSTime& Output)
-    {
-        Output.DDSToUE(*Data);
-    };
+    /** Begin implement TopicProxy Interface */
+    virtual void Initialize() override;
+    virtual void Terminate() override;
+    virtual const dds_topic_descriptor_t* GetTypeDesc() override;
+    virtual void* Get() override;
+    virtual void ExecuteMessageCallback() override;
+    /** End implement TopicProxy Interface */
 
     UFUNCTION(BlueprintCallable)
-    void SetData(FROSTime Input)
-    {
-        Input.UEToDDS(*Data);
-    };
+    void GetData(FROSTime& Output);
 
-    virtual void ExecuteMessageCallback() override
-    {
-        FROSTime NewData;
-        NewData.DDSToUE(*Data);
-        OnDataChanged.Broadcast(NewData);
-    };
-
-    virtual void* Get() override
-    {
-        return Data;
-    };
-
-    virtual const dds_topic_descriptor_t* GetTypeDesc() override
-    {
-        return &builtin_interfaces_msg_Time_desc;
-    };
+    UFUNCTION(BlueprintCallable)
+    void SetData(FROSTime Input);
 
 private:
     builtin_interfaces_msg_Time* Data;

@@ -26,27 +26,15 @@
 
 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
 USTRUCT(Blueprintable)
 struct FROSPointStamped
 {
     GENERATED_BODY()
 
-public:
-    /**
-    * @cond
-    */
     FROSPointStamped()
     {
 
     };
-    /**
-     * @endcond
-     */
 
     
     UPROPERTY(EditAnywhere)
@@ -56,28 +44,9 @@ public:
     FROSPoint Point;
     
 
-    /**
-     * @cond
-     */
-    void DDSToUE (const geometry_msgs_msg_PointStamped& InData) 
-    {
-        Header.DDSToUE(InData.header);
-        Point.DDSToUE(InData.point);
-    };
-
-    void UEToDDS (geometry_msgs_msg_PointStamped& OutData) 
-    {
-        Header.UEToDDS(OutData.header);
-        Point.UEToDDS(OutData.point);
-    };
-    
-    /**
-     * @endcond
-     */
+    void DDSToUE(const geometry_msgs_msg_PointStamped& InData);
+    void UEToDDS(geometry_msgs_msg_PointStamped& OutData);
 };
-/** @} */
-
-
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSPointStampedCallback, const FROSPointStamped, Data);
 
@@ -86,47 +55,22 @@ class MORSEROSDATAMODEL_API UPointStamped_TopicProxy : public UTopicProxy
 {
     GENERATED_BODY()
 
-public:
-
     UPROPERTY(BlueprintAssignable)
     FROSPointStampedCallback OnDataChanged;
 
-    virtual void Initialize() override {
-        Data = geometry_msgs_msg_PointStamped__alloc();
-    };
-
-    virtual void Terminate() override {
-        geometry_msgs_msg_PointStamped_free(Data, DDS_FREE_ALL);
-    };
-
-    UFUNCTION(BlueprintCallable)
-    void GetData(FROSPointStamped& Output)
-    {
-        Output.DDSToUE(*Data);
-    };
+    /** Begin implement TopicProxy Interface */
+    virtual void Initialize() override;
+    virtual void Terminate() override;
+    virtual const dds_topic_descriptor_t* GetTypeDesc() override;
+    virtual void* Get() override;
+    virtual void ExecuteMessageCallback() override;
+    /** End implement TopicProxy Interface */
 
     UFUNCTION(BlueprintCallable)
-    void SetData(FROSPointStamped Input)
-    {
-        Input.UEToDDS(*Data);
-    };
+    void GetData(FROSPointStamped& Output);
 
-    virtual void ExecuteMessageCallback() override
-    {
-        FROSPointStamped NewData;
-        NewData.DDSToUE(*Data);
-        OnDataChanged.Broadcast(NewData);
-    };
-
-    virtual void* Get() override
-    {
-        return Data;
-    };
-
-    virtual const dds_topic_descriptor_t* GetTypeDesc() override
-    {
-        return &geometry_msgs_msg_PointStamped_desc;
-    };
+    UFUNCTION(BlueprintCallable)
+    void SetData(FROSPointStamped Input);
 
 private:
     geometry_msgs_msg_PointStamped* Data;

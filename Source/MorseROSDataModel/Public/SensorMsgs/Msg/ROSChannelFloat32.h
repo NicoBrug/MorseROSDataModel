@@ -20,27 +20,18 @@
 
 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
+
 USTRUCT(Blueprintable)
 struct FROSChannelFloat32
 {
     GENERATED_BODY()
 
 public:
-    /**
-    * @cond
-    */
+
     FROSChannelFloat32()
     {
 
     };
-    /**
-     * @endcond
-     */
 
     
     UPROPERTY(EditAnywhere)
@@ -49,27 +40,6 @@ public:
     UPROPERTY(EditAnywhere)
     TArray<float> Values;
     
-
-    /**
-     * @cond
-     */
-    void DDSToUE (const sensor_msgs_msg_ChannelFloat32& InData) 
-    {
-        ConvertUtils::DDSStringToUE( InData.name, Name);
-        ConvertUtils::SequenceToTArray<float, float>(InData.values._buffer, Values, InData.values._length);
-    };
-
-    void UEToDDS (sensor_msgs_msg_ChannelFloat32& OutData) 
-    {
-        ConvertUtils::UEStringToDDS(Name, OutData.name );
-        OutData.values._length = Values.Num();
-        OutData.values._buffer = dds_sequence_float_allocbuf(Values.Num());
-        OutData.values._release = true;
-        ConvertUtils::TArrayToSequence<float, float>(Values, OutData.values._buffer, Values.Num());
-    };
-    
-    /**
-     * @endcond
-     */
+    void DDSToUE (const sensor_msgs_msg_ChannelFloat32& InData);
+    void UEToDDS (sensor_msgs_msg_ChannelFloat32& OutData);
 };
-/** @} */

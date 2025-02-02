@@ -28,27 +28,15 @@
 
 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
 USTRUCT(Blueprintable)
 struct FROSPoseStamped
 {
     GENERATED_BODY()
 
-public:
-    /**
-    * @cond
-    */
     FROSPoseStamped()
     {
 
     };
-    /**
-     * @endcond
-     */
 
     
     UPROPERTY(EditAnywhere)
@@ -58,28 +46,9 @@ public:
     FROSPose Pose;
     
 
-    /**
-     * @cond
-     */
-    void DDSToUE (const geometry_msgs_msg_PoseStamped& InData) 
-    {
-        Header.DDSToUE(InData.header);
-        Pose.DDSToUE(InData.pose);
-    };
-
-    void UEToDDS (geometry_msgs_msg_PoseStamped& OutData) 
-    {
-        Header.UEToDDS(OutData.header);
-        Pose.UEToDDS(OutData.pose);
-    };
-    
-    /**
-     * @endcond
-     */
+    void DDSToUE(const geometry_msgs_msg_PoseStamped& InData);
+    void UEToDDS(geometry_msgs_msg_PoseStamped& OutData);
 };
-/** @} */
-
-
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSPoseStampedCallback, const FROSPoseStamped, Data);
 
@@ -88,47 +57,22 @@ class MORSEROSDATAMODEL_API UPoseStamped_TopicProxy : public UTopicProxy
 {
     GENERATED_BODY()
 
-public:
-
     UPROPERTY(BlueprintAssignable)
     FROSPoseStampedCallback OnDataChanged;
 
-    virtual void Initialize() override {
-        Data = geometry_msgs_msg_PoseStamped__alloc();
-    };
-
-    virtual void Terminate() override {
-        geometry_msgs_msg_PoseStamped_free(Data, DDS_FREE_ALL);
-    };
-
-    UFUNCTION(BlueprintCallable)
-    void GetData(FROSPoseStamped& Output)
-    {
-        Output.DDSToUE(*Data);
-    };
+    /** Begin implement TopicProxy Interface */
+    virtual void Initialize() override;
+    virtual void Terminate() override;
+    virtual const dds_topic_descriptor_t* GetTypeDesc() override;
+    virtual void* Get() override;
+    virtual void ExecuteMessageCallback() override;
+    /** End implement TopicProxy Interface */
 
     UFUNCTION(BlueprintCallable)
-    void SetData(FROSPoseStamped Input)
-    {
-        Input.UEToDDS(*Data);
-    };
+    void GetData(FROSPoseStamped& Output);
 
-    virtual void ExecuteMessageCallback() override
-    {
-        FROSPoseStamped NewData;
-        NewData.DDSToUE(*Data);
-        OnDataChanged.Broadcast(NewData);
-    };
-
-    virtual void* Get() override
-    {
-        return Data;
-    };
-
-    virtual const dds_topic_descriptor_t* GetTypeDesc() override
-    {
-        return &geometry_msgs_msg_PoseStamped_desc;
-    };
+    UFUNCTION(BlueprintCallable)
+    void SetData(FROSPoseStamped Input);
 
 private:
     geometry_msgs_msg_PoseStamped* Data;

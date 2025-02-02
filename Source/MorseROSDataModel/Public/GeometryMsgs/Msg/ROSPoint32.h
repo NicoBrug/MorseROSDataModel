@@ -24,27 +24,15 @@
 
 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
 USTRUCT(Blueprintable)
 struct FROSPoint32
 {
     GENERATED_BODY()
 
-public:
-    /**
-    * @cond
-    */
     FROSPoint32()
     {
 
     };
-    /**
-     * @endcond
-     */
 
     
     UPROPERTY(EditAnywhere)
@@ -57,30 +45,9 @@ public:
     float Z;
     
 
-    /**
-     * @cond
-     */
-    void DDSToUE (const geometry_msgs_msg_Point32& InData) 
-    {
-        X = InData.x;
-        Y = InData.y;
-        Z = InData.z;
-    };
-
-    void UEToDDS (geometry_msgs_msg_Point32& OutData) 
-    {
-        OutData.x = X;
-        OutData.y = Y;
-        OutData.z = Z;
-    };
-    
-    /**
-     * @endcond
-     */
+    void DDSToUE(const geometry_msgs_msg_Point32& InData);
+    void UEToDDS(geometry_msgs_msg_Point32& OutData);
 };
-/** @} */
-
-
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSPoint32Callback, const FROSPoint32, Data);
 
@@ -89,47 +56,22 @@ class MORSEROSDATAMODEL_API UPoint32_TopicProxy : public UTopicProxy
 {
     GENERATED_BODY()
 
-public:
-
     UPROPERTY(BlueprintAssignable)
     FROSPoint32Callback OnDataChanged;
 
-    virtual void Initialize() override {
-        Data = geometry_msgs_msg_Point32__alloc();
-    };
-
-    virtual void Terminate() override {
-        geometry_msgs_msg_Point32_free(Data, DDS_FREE_ALL);
-    };
-
-    UFUNCTION(BlueprintCallable)
-    void GetData(FROSPoint32& Output)
-    {
-        Output.DDSToUE(*Data);
-    };
+    /** Begin implement TopicProxy Interface */
+    virtual void Initialize() override;
+    virtual void Terminate() override;
+    virtual const dds_topic_descriptor_t* GetTypeDesc() override;
+    virtual void* Get() override;
+    virtual void ExecuteMessageCallback() override;
+    /** End implement TopicProxy Interface */
 
     UFUNCTION(BlueprintCallable)
-    void SetData(FROSPoint32 Input)
-    {
-        Input.UEToDDS(*Data);
-    };
+    void GetData(FROSPoint32& Output);
 
-    virtual void ExecuteMessageCallback() override
-    {
-        FROSPoint32 NewData;
-        NewData.DDSToUE(*Data);
-        OnDataChanged.Broadcast(NewData);
-    };
-
-    virtual void* Get() override
-    {
-        return Data;
-    };
-
-    virtual const dds_topic_descriptor_t* GetTypeDesc() override
-    {
-        return &geometry_msgs_msg_Point32_desc;
-    };
+    UFUNCTION(BlueprintCallable)
+    void SetData(FROSPoint32 Input);
 
 private:
     geometry_msgs_msg_Point32* Data;

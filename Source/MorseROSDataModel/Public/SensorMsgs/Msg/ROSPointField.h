@@ -31,27 +31,16 @@ enum class EROSPointFieldType : uint8
 
 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
+
 USTRUCT(Blueprintable)
 struct FROSPointField
 {
     GENERATED_BODY()
-
-public:
-    /**
-    * @cond
-    */
+    
     FROSPointField()
     {
 
     };
-    /**
-     * @endcond
-     */
 
     
     UPROPERTY(EditAnywhere)
@@ -66,27 +55,7 @@ public:
     UPROPERTY(EditAnywhere)
     unsigned int Count;
     
-    /**
-     * @cond
-     */
-    void DDSToUE(const sensor_msgs_msg_PointField& InData)
-    {
-        ConvertUtils::DDSStringToUE(InData.name, Name);
-        Offset = InData.offset;
-        Datatype = static_cast<EROSPointFieldType>(InData.datatype);
-        Count = InData.count;
-    };
 
-    void UEToDDS(sensor_msgs_msg_PointField& OutData)
-    {
-        ConvertUtils::UEStringToDDS(Name, OutData.name);
-        OutData.offset = Offset;
-        OutData.datatype = static_cast<uint8>(Datatype);
-        OutData.count = Count;
-    };
-    
-    /**
-     * @endcond
-     */
+    void DDSToUE(const sensor_msgs_msg_PointField& InData);
+    void UEToDDS(sensor_msgs_msg_PointField& OutData);
 };
-/** @} */

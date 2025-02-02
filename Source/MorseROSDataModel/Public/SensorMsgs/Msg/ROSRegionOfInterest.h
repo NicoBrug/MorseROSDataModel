@@ -25,27 +25,15 @@
 
 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
 USTRUCT(Blueprintable)
 struct FROSRegionOfInterest
 {
     GENERATED_BODY()
 
-public:
-    /**
-    * @cond
-    */
     FROSRegionOfInterest()
     {
 
     };
-    /**
-     * @endcond
-     */
 
     
     UPROPERTY(EditAnywhere)
@@ -64,32 +52,9 @@ public:
     bool DoRectify;
     
 
-    /**
-     * @cond
-     */
-    void DDSToUE (const sensor_msgs_msg_RegionOfInterest& InData) 
-    {
-        XOffset = InData.x_offset;
-        YOffset = InData.y_offset;
-        Height = InData.height;
-        Width = InData.width;
-        DoRectify = InData.do_rectify;
-    };
-
-    void UEToDDS (sensor_msgs_msg_RegionOfInterest& OutData) 
-    {
-        OutData.x_offset = XOffset;
-        OutData.y_offset = YOffset;
-        OutData.height = Height;
-        OutData.width = Width;
-        OutData.do_rectify = DoRectify;
-    };
-    
-    /**
-     * @endcond
-     */
+    void DDSToUE(const sensor_msgs_msg_RegionOfInterest& InData);
+    void UEToDDS(sensor_msgs_msg_RegionOfInterest& OutData);
 };
-/** @} */
 
 
 
@@ -100,47 +65,22 @@ class MORSEROSDATAMODEL_API URegionOfInterest_TopicProxy : public UTopicProxy
 {
     GENERATED_BODY()
 
-public:
-
     UPROPERTY(BlueprintAssignable)
     FROSRegionOfInterestCallback OnDataChanged;
 
-    virtual void Initialize() override {
-        Data = sensor_msgs_msg_RegionOfInterest__alloc();
-    };
-
-    virtual void Terminate() override {
-        sensor_msgs_msg_RegionOfInterest_free(Data, DDS_FREE_ALL);
-    };
-
-    UFUNCTION(BlueprintCallable)
-    void GetData(FROSRegionOfInterest& Output)
-    {
-        Output.DDSToUE(*Data);
-    };
+    /** Begin implement TopicProxy Interface */
+    virtual void Initialize() override;
+    virtual void Terminate() override;
+    virtual const dds_topic_descriptor_t* GetTypeDesc() override;
+    virtual void* Get() override;
+    virtual void ExecuteMessageCallback() override;
+    /** End implement TopicProxy Interface */
 
     UFUNCTION(BlueprintCallable)
-    void SetData(FROSRegionOfInterest Input)
-    {
-        Input.UEToDDS(*Data);
-    };
+    void GetData(FROSRegionOfInterest& Output);
 
-    virtual void ExecuteMessageCallback() override
-    {
-        FROSRegionOfInterest NewData;
-        NewData.DDSToUE(*Data);
-        OnDataChanged.Broadcast(NewData);
-    };
-
-    virtual void* Get() override
-    {
-        return Data;
-    };
-
-    virtual const dds_topic_descriptor_t* GetTypeDesc() override
-    {
-        return &sensor_msgs_msg_RegionOfInterest_desc;
-    };
+    UFUNCTION(BlueprintCallable)
+    void SetData(FROSRegionOfInterest Input);
 
 private:
     sensor_msgs_msg_RegionOfInterest* Data;

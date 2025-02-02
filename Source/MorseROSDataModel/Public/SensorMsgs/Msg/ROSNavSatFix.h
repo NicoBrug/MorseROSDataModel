@@ -25,27 +25,16 @@
 
 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
 USTRUCT(Blueprintable)
 struct FROSNavSatFix
 {
     GENERATED_BODY()
 
-public:
-    /**
-    * @cond
-    */
     FROSNavSatFix()
     {
         PositionCovariance.SetNumZeroed(9);
     };
-    /**
-     * @endcond
-     */
+
     // Covariance Type constants
     static constexpr uint8 CovarianceTypeUnknown = 0;
     static constexpr uint8 CovarianceTypeApproximated = 1;
@@ -73,37 +62,10 @@ public:
     UPROPERTY(EditAnywhere)
     uint8 PositionCovarianceType;
     
-
-    /**
-     * @cond
-     */
-    void DDSToUE (const sensor_msgs_msg_NavSatFix& InData) 
-    {
-        Header.DDSToUE(InData.header);
-        Status.DDSToUE(InData.status);
-        Latitude = InData.latitude;
-        Longitude = InData.longitude;
-        Altitude = InData.altitude;
-        ConvertUtils::SequenceToTArray<double, double>(InData.position_covariance, PositionCovariance, 9);
-        PositionCovarianceType = InData.position_covariance_type;
-    };
-
-    void UEToDDS (sensor_msgs_msg_NavSatFix& OutData) 
-    {
-        Header.UEToDDS(OutData.header);
-        Status.UEToDDS(OutData.status);
-        OutData.latitude = Latitude;
-        OutData.longitude = Longitude;
-        OutData.altitude = Altitude;
-        ConvertUtils::TArrayToSequence<double, double>(PositionCovariance,OutData.position_covariance, 9);
-        OutData.position_covariance_type = PositionCovarianceType;
-    };
     
-    /**
-     * @endcond
-     */
+    void DDSToUE(const sensor_msgs_msg_NavSatFix& InData);
+    void UEToDDS(sensor_msgs_msg_NavSatFix& OutData);
 };
-/** @} */
 
 
 
@@ -119,42 +81,19 @@ public:
     UPROPERTY(BlueprintAssignable)
     FROSNavSatFixCallback OnDataChanged;
 
-    virtual void Initialize() override {
-        Data = sensor_msgs_msg_NavSatFix__alloc();
-    };
-
-    virtual void Terminate() override {
-        sensor_msgs_msg_NavSatFix_free(Data, DDS_FREE_ALL);
-    };
-
-    UFUNCTION(BlueprintCallable)
-    void GetData(FROSNavSatFix& Output)
-    {
-        Output.DDSToUE(*Data);
-    };
+    /** Begin implement TopicProxy Interface */
+    virtual void Initialize() override;
+    virtual void Terminate() override;
+    virtual const dds_topic_descriptor_t* GetTypeDesc() override;
+    virtual void* Get() override;
+    virtual void ExecuteMessageCallback() override;
+    /** End implement TopicProxy Interface */
 
     UFUNCTION(BlueprintCallable)
-    void SetData(FROSNavSatFix Input)
-    {
-        Input.UEToDDS(*Data);
-    };
+    void GetData(FROSNavSatFix& Output);
 
-    virtual void ExecuteMessageCallback() override
-    {
-        FROSNavSatFix NewData;
-        NewData.DDSToUE(*Data);
-        OnDataChanged.Broadcast(NewData);
-    };
-
-    virtual void* Get() override
-    {
-        return Data;
-    };
-
-    virtual const dds_topic_descriptor_t* GetTypeDesc() override
-    {
-        return &sensor_msgs_msg_NavSatFix_desc;
-    };
+    UFUNCTION(BlueprintCallable)
+    void SetData(FROSNavSatFix Input);
 
 private:
     sensor_msgs_msg_NavSatFix* Data;

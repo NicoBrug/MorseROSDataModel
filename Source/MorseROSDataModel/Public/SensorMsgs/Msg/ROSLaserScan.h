@@ -24,28 +24,15 @@
 
 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
 USTRUCT(Blueprintable)
 struct FROSLaserScan
 {
     GENERATED_BODY()
 
-public:
-    /**
-    * @cond
-    */
     FROSLaserScan()
     {
 
     };
-    /**
-     * @endcond
-     */
-
     
     UPROPERTY(EditAnywhere)
     FROSHeader Header;
@@ -78,48 +65,9 @@ public:
     TArray<float> Intensities;
     
 
-    /**
-     * @cond
-     */
-    void DDSToUE (const sensor_msgs_msg_LaserScan& InData) 
-    {
-        Header.DDSToUE(InData.header);
-        AngleMin = InData.angle_min;
-        AngleMax = InData.angle_max;
-        AngleIncrement = InData.angle_increment;
-        TimeIncrement = InData.time_increment;
-        ScanTime = InData.scan_time;
-        RangeMin = InData.range_min;
-        RangeMax = InData.range_max;
-        ConvertUtils::SequenceToTArray<float, float>(InData.ranges._buffer, Ranges, InData.ranges._length);
-        ConvertUtils::SequenceToTArray<float, float>(InData.intensities._buffer, Intensities, InData.intensities._length);
-    };
-
-    void UEToDDS (sensor_msgs_msg_LaserScan& OutData) 
-    {
-        Header.UEToDDS(OutData.header);
-        OutData.angle_min = AngleMin;
-        OutData.angle_max = AngleMax;
-        OutData.angle_increment = AngleIncrement;
-        OutData.time_increment = TimeIncrement;
-        OutData.scan_time = ScanTime;
-        OutData.range_min = RangeMin;
-        OutData.range_max = RangeMax;
-        OutData.ranges._length = Ranges.Num();
-        OutData.ranges._buffer = dds_sequence_float_allocbuf(Ranges.Num());
-        OutData.ranges._release = true;
-        ConvertUtils::TArrayToSequence<float, float>(Ranges, OutData.ranges._buffer, Ranges.Num());
-        OutData.intensities._length = Intensities.Num();
-        OutData.intensities._buffer = dds_sequence_float_allocbuf(Intensities.Num());
-        OutData.intensities._release = true;
-        ConvertUtils::TArrayToSequence<float, float>(Intensities, OutData.intensities._buffer, Intensities.Num());
-    };
-    
-    /**
-     * @endcond
-     */
+    void DDSToUE (const sensor_msgs_msg_LaserScan& InData);
+    void UEToDDS (sensor_msgs_msg_LaserScan& OutData);
 };
-/** @} */
 
 
 
@@ -135,42 +83,19 @@ public:
     UPROPERTY(BlueprintAssignable)
     FROSLaserScanCallback OnDataChanged;
 
-    virtual void Initialize() override {
-        Data = sensor_msgs_msg_LaserScan__alloc();
-    };
-
-    virtual void Terminate() override {
-        sensor_msgs_msg_LaserScan_free(Data, DDS_FREE_ALL);
-    };
-
-    UFUNCTION(BlueprintCallable)
-    void GetData(FROSLaserScan& Output)
-    {
-        Output.DDSToUE(*Data);
-    };
+    /** Begin implement TopicProxy Interface */
+    virtual void Initialize() override;
+    virtual void Terminate() override;
+    virtual const dds_topic_descriptor_t* GetTypeDesc() override;
+    virtual void* Get() override;
+    virtual void ExecuteMessageCallback() override;
+    /** End implement TopicProxy Interface */
 
     UFUNCTION(BlueprintCallable)
-    void SetData(FROSLaserScan Input)
-    {
-        Input.UEToDDS(*Data);
-    };
+    void GetData(FROSLaserScan& Output);
 
-    virtual void ExecuteMessageCallback() override
-    {
-        FROSLaserScan NewData;
-        NewData.DDSToUE(*Data);
-        OnDataChanged.Broadcast(NewData);
-    };
-
-    virtual void* Get() override
-    {
-        return Data;
-    };
-
-    virtual const dds_topic_descriptor_t* GetTypeDesc() override
-    {
-        return &sensor_msgs_msg_LaserScan_desc;
-    };
+    UFUNCTION(BlueprintCallable)
+    void SetData(FROSLaserScan Input);
 
 private:
     sensor_msgs_msg_LaserScan* Data;

@@ -26,54 +26,24 @@
 
 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
 USTRUCT(Blueprintable)
 struct FROSTFMessage
 {
     GENERATED_BODY()
 
-public:
-    /**
-    * @cond
-    */
     FROSTFMessage()
     {
 
     };
-    /**
-     * @endcond
-     */
 
     
     UPROPERTY(EditAnywhere)
     TArray<FROSTransformStamped> Transforms;
     
 
-    /**
-     * @cond
-     */
-    void DDSToUE (const tf2_msgs_msg_TFMessage& InData) 
-    {
-        ConvertUtils::SequenceToTArray<geometry_msgs_msg_TransformStamped, FROSTransformStamped>(InData.transforms._buffer, Transforms, InData.transforms._length);
-    };
-
-    void UEToDDS (tf2_msgs_msg_TFMessage& OutData) 
-    {
-        OutData.transforms._length = Transforms.Num();
-        OutData.transforms._buffer = dds_sequence_geometry_msgs_msg_TransformStamped_allocbuf(Transforms.Num());
-        OutData.transforms._release = true;
-        ConvertUtils::TArrayToSequence<geometry_msgs_msg_TransformStamped, FROSTransformStamped>(Transforms, OutData.transforms._buffer, Transforms.Num());
-    };
-    
-    /**
-     * @endcond
-     */
+    void DDSToUE(const tf2_msgs_msg_TFMessage& InData);
+    void UEToDDS(tf2_msgs_msg_TFMessage& OutData);
 };
-/** @} */
 
 
 
@@ -84,47 +54,22 @@ class MORSEROSDATAMODEL_API UTFMessage_TopicProxy : public UTopicProxy
 {
     GENERATED_BODY()
 
-public:
-
     UPROPERTY(BlueprintAssignable)
     FROSTFMessageCallback OnDataChanged;
 
-    virtual void Initialize() override {
-        Data = tf2_msgs_msg_TFMessage__alloc();
-    };
-
-    virtual void Terminate() override {
-        tf2_msgs_msg_TFMessage_free(Data, DDS_FREE_ALL);
-    };
-
-    UFUNCTION(BlueprintCallable)
-    void GetData(FROSTFMessage& Output)
-    {
-        Output.DDSToUE(*Data);
-    };
+    /** Begin implement TopicProxy Interface */
+    virtual void Initialize() override;
+    virtual void Terminate() override;
+    virtual const dds_topic_descriptor_t* GetTypeDesc() override;
+    virtual void* Get() override;
+    virtual void ExecuteMessageCallback() override;
+    /** End implement TopicProxy Interface */
 
     UFUNCTION(BlueprintCallable)
-    void SetData(FROSTFMessage Input)
-    {
-        Input.UEToDDS(*Data);
-    };
+    void GetData(FROSTFMessage& Output);
 
-    virtual void ExecuteMessageCallback() override
-    {
-        FROSTFMessage NewData;
-        NewData.DDSToUE(*Data);
-        OnDataChanged.Broadcast(NewData);
-    };
-
-    virtual void* Get() override
-    {
-        return Data;
-    };
-
-    virtual const dds_topic_descriptor_t* GetTypeDesc() override
-    {
-        return &tf2_msgs_msg_TFMessage_desc;
-    };
+    UFUNCTION(BlueprintCallable)
+    void SetData(FROSTFMessage Input);
 
 private:
     tf2_msgs_msg_TFMessage* Data;

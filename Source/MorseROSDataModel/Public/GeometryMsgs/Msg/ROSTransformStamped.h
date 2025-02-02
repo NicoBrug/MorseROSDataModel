@@ -24,27 +24,15 @@
 
 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
 USTRUCT(Blueprintable)
 struct FROSTransformStamped
 {
 	GENERATED_BODY()
 
-public:
-	/**
-	* @cond
-	*/
 	FROSTransformStamped()
 	{
 
 	};
-	/**
-	 * @endcond
-	 */
 
     
 	UPROPERTY(EditAnywhere)
@@ -55,27 +43,8 @@ public:
     
 	UPROPERTY(EditAnywhere)
 	FROSTransform Transform;
-    
 
-	/**
-	 * @cond
-	 */
-	void DDSToUE (const geometry_msgs_msg_TransformStamped& InData) 
-	{
-		Header.DDSToUE(InData.header);
-		ConvertUtils::DDSStringToUE( InData.child_frame_id, ChildFrameId);
-		Transform.DDSToUE(InData.transform);
-	};
-
-	void UEToDDS (geometry_msgs_msg_TransformStamped& OutData) 
-	{
-		Header.UEToDDS(OutData.header);
-		ConvertUtils::UEStringToDDS(ChildFrameId, OutData.child_frame_id );
-		Transform.UEToDDS(OutData.transform);
-	};
-    
-	/**
-	 * @endcond
-	 */
+	
+	void DDSToUE(const geometry_msgs_msg_TransformStamped& InData);
+	void UEToDDS(geometry_msgs_msg_TransformStamped& OutData);
 };
-/** @} */

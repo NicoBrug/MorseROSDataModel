@@ -28,17 +28,10 @@ struct FROSPointCloud2
 {
     GENERATED_BODY()
 
-public:
-    /**
-    * @cond
-    */
     FROSPointCloud2()
     {
 
     };
-    /**
-     * @endcond
-     */
 
     
     UPROPERTY(EditAnywhere)
@@ -69,46 +62,9 @@ public:
     bool IsDense;
     
 
-    /**
-     * @cond
-     */
-    void DDSToUE (const sensor_msgs_msg_PointCloud2& InData) 
-    {
-        Header.DDSToUE(InData.header);
-        Height = InData.height;
-        Width = InData.width;
-        ConvertUtils::SequenceToTArray<sensor_msgs_msg_PointField, FROSPointField>(InData.fields._buffer, Fields, InData.fields._length);
-        IsBigendian = InData.is_bigendian;
-        PointStep = InData.point_step;
-        RowStep = InData.row_step;
-        ConvertUtils::SequenceToTArray<uint8, uint8>(InData.data._buffer, Data, InData.data._length);
-        IsDense = InData.is_dense;
-    };
-
-    void UEToDDS (sensor_msgs_msg_PointCloud2& OutData) 
-    {
-        Header.UEToDDS(OutData.header);
-        OutData.height = Height;
-        OutData.width = Width;
-        OutData.fields._length = Fields.Num();
-        OutData.fields._buffer = dds_sequence_sensor_msgs_msg_PointField_allocbuf(Fields.Num());
-        OutData.fields._release = true;
-        ConvertUtils::TArrayToSequence<sensor_msgs_msg_PointField, FROSPointField>(Fields, OutData.fields._buffer, Fields.Num());
-        OutData.is_bigendian = IsBigendian;
-        OutData.point_step = PointStep;
-        OutData.row_step = RowStep;
-        OutData.data._length = Data.Num();
-        OutData.data._buffer = dds_sequence_uint8_allocbuf(Data.Num());
-        OutData.data._release = true;
-        ConvertUtils::TArrayToSequence<uint8, uint8>(Data, OutData.data._buffer, Data.Num());
-        OutData.is_dense = IsDense;
-    };
-    
-    /**
-     * @endcond
-     */
+    void DDSToUE (const sensor_msgs_msg_PointCloud2& InData);
+    void UEToDDS (sensor_msgs_msg_PointCloud2& OutData);
 };
-/** @} */
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSPointCloud2Callback, const FROSPointCloud2, Data);
 
@@ -118,47 +74,22 @@ class MORSEROSDATAMODEL_API UPointCloud2_TopicProxy : public UTopicProxy
 {
     GENERATED_BODY()
 
-public:
-
     UPROPERTY(BlueprintAssignable)
     FROSPointCloud2Callback OnDataChanged;
 
-    virtual void Initialize() override {
-        Data = sensor_msgs_msg_PointCloud2__alloc();
-    };
-
-    virtual void Terminate() override {
-        sensor_msgs_msg_PointCloud2_free(Data, DDS_FREE_ALL);
-    };
-
-    UFUNCTION(BlueprintCallable)
-    void GetData(FROSPointCloud2& Output)
-    {
-        Output.DDSToUE(*Data);
-    };
+    /** Begin implement TopicProxy Interface */
+    virtual void Initialize() override;
+    virtual void Terminate() override;
+    virtual const dds_topic_descriptor_t* GetTypeDesc() override;
+    virtual void* Get() override;
+    virtual void ExecuteMessageCallback() override;
+    /** End implement TopicProxy Interface */
 
     UFUNCTION(BlueprintCallable)
-    void SetData(FROSPointCloud2 Input)
-    {
-        Input.UEToDDS(*Data);
-    };
+    void GetData(FROSPointCloud2& Output);
 
-    virtual void ExecuteMessageCallback() override
-    {
-        FROSPointCloud2 NewData;
-        NewData.DDSToUE(*Data);
-        OnDataChanged.Broadcast(NewData);
-    };
-
-    virtual void* Get() override
-    {
-        return Data;
-    };
-
-    virtual const dds_topic_descriptor_t* GetTypeDesc() override
-    {
-        return &sensor_msgs_msg_PointCloud2_desc;
-    };
+    UFUNCTION(BlueprintCallable)
+    void SetData(FROSPointCloud2 Input);
 
 private:
     sensor_msgs_msg_PointCloud2* Data;

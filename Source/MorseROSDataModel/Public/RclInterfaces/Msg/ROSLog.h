@@ -27,81 +27,42 @@
 
 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
-USTRUCT(Blueprintable, BlueprintType)
+USTRUCT(Blueprintable)
 struct FROSLog
 {
     GENERATED_BODY()
 
-public:
-    /**
-    * @cond
-    */
     FROSLog()
     {
 
     };
-    /**
-     * @endcond
-     */
 
     
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(EditAnywhere)
     FROSTime Stamp;
     
     UPROPERTY(EditAnywhere)
     uint8 Level;
     
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(EditAnywhere)
     FString Name;
     
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(EditAnywhere)
     FString Msg;
     
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(EditAnywhere)
     FString File;
     
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(EditAnywhere)
     FString Function;
     
     UPROPERTY(EditAnywhere)
     unsigned int Line;
     
 
-    /**
-     * @cond
-     */
-    void DDSToUE (const rcl_interfaces_msg_Log& InData) 
-    {
-        Stamp.DDSToUE(InData.stamp);
-        Level = InData.level;
-        ConvertUtils::DDSStringToUE( InData.name, Name);
-        ConvertUtils::DDSStringToUE( InData.msg, Msg);
-        ConvertUtils::DDSStringToUE( InData.file, File);
-        ConvertUtils::DDSStringToUE( InData.function, Function);
-        Line = InData.line;
-    };
-
-    void UEToDDS (rcl_interfaces_msg_Log& OutData) 
-    {
-        Stamp.UEToDDS(OutData.stamp);
-        OutData.level = Level;
-        ConvertUtils::UEStringToDDS(Name, OutData.name );
-        ConvertUtils::UEStringToDDS(Msg, OutData.msg );
-        ConvertUtils::UEStringToDDS(File, OutData.file );
-        ConvertUtils::UEStringToDDS(Function, OutData.function );
-        OutData.line = Line;
-    };
-    
-    /**
-     * @endcond
-     */
+    void DDSToUE(const rcl_interfaces_msg_Log& InData);
+    void UEToDDS(rcl_interfaces_msg_Log& OutData);
 };
-/** @} */
 
 
 
@@ -112,47 +73,22 @@ class MORSEROSDATAMODEL_API ULog_TopicProxy : public UTopicProxy
 {
     GENERATED_BODY()
 
-public:
-
     UPROPERTY(BlueprintAssignable)
     FROSLogCallback OnDataChanged;
 
-    virtual void Initialize() override {
-        Data = rcl_interfaces_msg_Log__alloc();
-    };
-
-    virtual void Terminate() override {
-        rcl_interfaces_msg_Log_free(Data, DDS_FREE_ALL);
-    };
-
-    UFUNCTION(BlueprintCallable)
-    void GetData(FROSLog& Output)
-    {
-        Output.DDSToUE(*Data);
-    };
+    /** Begin implement TopicProxy Interface */
+    virtual void Initialize() override;
+    virtual void Terminate() override;
+    virtual const dds_topic_descriptor_t* GetTypeDesc() override;
+    virtual void* Get() override;
+    virtual void ExecuteMessageCallback() override;
+    /** End implement TopicProxy Interface */
 
     UFUNCTION(BlueprintCallable)
-    void SetData(FROSLog Input)
-    {
-        Input.UEToDDS(*Data);
-    };
+    void GetData(FROSLog& Output);
 
-    virtual void ExecuteMessageCallback() override
-    {
-        FROSLog NewData;
-        NewData.DDSToUE(*Data);
-        OnDataChanged.Broadcast(NewData);
-    };
-
-    virtual void* Get() override
-    {
-        return Data;
-    };
-
-    virtual const dds_topic_descriptor_t* GetTypeDesc() override
-    {
-        return &rcl_interfaces_msg_Log_desc;
-    };
+    UFUNCTION(BlueprintCallable)
+    void SetData(FROSLog Input);
 
 private:
     rcl_interfaces_msg_Log* Data;

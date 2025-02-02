@@ -19,27 +19,15 @@
 
 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
 USTRUCT(Blueprintable)
 struct FROSNavSatStatus
 {
     GENERATED_BODY()
-
-public:
-    /**
-    * @cond
-    */
+    
     FROSNavSatStatus()
     {
 
     };
-    /**
-     * @endcond
-     */
 
     // Status constants
     static constexpr int8 StatusNoFix = -1;
@@ -58,29 +46,11 @@ public:
     
     UPROPERTY(EditAnywhere)
     uint16 Service;
-    
 
-    /**
-     * @cond
-     */
-    void DDSToUE (const sensor_msgs_msg_NavSatStatus& InData) 
-    {
-        Status = InData.status;
-        Service = InData.service;
-    };
-
-    void UEToDDS (sensor_msgs_msg_NavSatStatus& OutData) 
-    {
-        OutData.status = Status;
-        OutData.service = Service;
-    };
     
-    /**
-     * @endcond
-     */
+    void DDSToUE (const sensor_msgs_msg_NavSatStatus& InData);
+    void UEToDDS (sensor_msgs_msg_NavSatStatus& OutData);
 };
-/** @} */
-
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSNavSatStatusCallback, const FROSNavSatStatus, Data);
@@ -90,47 +60,22 @@ class MORSEROSDATAMODEL_API UNavSatStatus_TopicProxy : public UTopicProxy
 {
     GENERATED_BODY()
 
-public:
-
     UPROPERTY(BlueprintAssignable)
     FROSNavSatStatusCallback OnDataChanged;
 
-    virtual void Initialize() override {
-        Data = sensor_msgs_msg_NavSatStatus__alloc();
-    };
-
-    virtual void Terminate() override {
-        sensor_msgs_msg_NavSatStatus_free(Data, DDS_FREE_ALL);
-    };
-
-    UFUNCTION(BlueprintCallable)
-    void GetData(FROSNavSatStatus& Output)
-    {
-        Output.DDSToUE(*Data);
-    };
+    /** Begin implement TopicProxy Interface */
+    virtual void Initialize() override;
+    virtual void Terminate() override;
+    virtual const dds_topic_descriptor_t* GetTypeDesc() override;
+    virtual void* Get() override;
+    virtual void ExecuteMessageCallback() override;
+    /** End implement TopicProxy Interface */
 
     UFUNCTION(BlueprintCallable)
-    void SetData(FROSNavSatStatus Input)
-    {
-        Input.UEToDDS(*Data);
-    };
+    void GetData(FROSNavSatStatus& Output);
 
-    virtual void ExecuteMessageCallback() override
-    {
-        FROSNavSatStatus NewData;
-        NewData.DDSToUE(*Data);
-        OnDataChanged.Broadcast(NewData);
-    };
-
-    virtual void* Get() override
-    {
-        return Data;
-    };
-
-    virtual const dds_topic_descriptor_t* GetTypeDesc() override
-    {
-        return &sensor_msgs_msg_NavSatStatus_desc;
-    };
+    UFUNCTION(BlueprintCallable)
+    void SetData(FROSNavSatStatus Input);
 
 private:
     sensor_msgs_msg_NavSatStatus* Data;

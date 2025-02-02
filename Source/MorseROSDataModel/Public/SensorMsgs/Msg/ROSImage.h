@@ -25,28 +25,15 @@
 
 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
 USTRUCT(Blueprintable)
 struct FROSImage
 {
     GENERATED_BODY()
-
-public:
-    /**
-    * @cond
-    */
+    
     FROSImage()
     {
 
     };
-    /**
-     * @endcond
-     */
-
     
     UPROPERTY(EditAnywhere)
     FROSHeader Header;
@@ -68,40 +55,10 @@ public:
     
     TArray<uint8> Data;
     
-
-    /**
-     * @cond
-     */
-    void DDSToUE (const sensor_msgs_msg_Image& InData) 
-    {
-        Header.DDSToUE(InData.header);
-        Height = InData.height;
-        Width = InData.width;
-        ConvertUtils::DDSStringToUE( InData.encoding, Encoding);
-        IsBigendian = InData.is_bigendian;
-        Step = InData.step;
-        ConvertUtils::SequenceToTArray<uint8, uint8>(InData.data._buffer, Data, InData.data._length);
-    };
-
-    void UEToDDS (sensor_msgs_msg_Image& OutData) 
-    {
-        Header.UEToDDS(OutData.header);
-        OutData.height = Height;
-        OutData.width = Width;
-        ConvertUtils::UEStringToDDS(Encoding, OutData.encoding );
-        OutData.is_bigendian = IsBigendian;
-        OutData.step = Step;
-        OutData.data._length = Data.Num();
-        OutData.data._buffer = dds_sequence_uint8_allocbuf(Data.Num());
-        OutData.data._release = true;
-        ConvertUtils::TArrayToSequence<uint8, uint8>(Data, OutData.data._buffer, Data.Num());
-    };
     
-    /**
-     * @endcond
-     */
+    void DDSToUE (const sensor_msgs_msg_Image& InData);
+    void UEToDDS (sensor_msgs_msg_Image& OutData);
 };
-/** @} */
 
 
 
@@ -117,42 +74,19 @@ public:
     UPROPERTY(BlueprintAssignable)
     FROSImageCallback OnDataChanged;
 
-    virtual void Initialize() override {
-        Data = sensor_msgs_msg_Image__alloc();
-    };
-
-    virtual void Terminate() override {
-        sensor_msgs_msg_Image_free(Data, DDS_FREE_ALL);
-    };
-
-    UFUNCTION(BlueprintCallable)
-    void GetData(FROSImage& Output)
-    {
-        Output.DDSToUE(*Data);
-    };
+    /** Begin implement TopicProxy Interface */
+    virtual void Initialize() override;
+    virtual void Terminate() override;
+    virtual const dds_topic_descriptor_t* GetTypeDesc() override;
+    virtual void* Get() override;
+    virtual void ExecuteMessageCallback() override;
+    /** End implement TopicProxy Interface */
 
     UFUNCTION(BlueprintCallable)
-    void SetData(FROSImage Input)
-    {
-        Input.UEToDDS(*Data);
-    };
+    void GetData(FROSImage& Output);
 
-    virtual void ExecuteMessageCallback() override
-    {
-        FROSImage NewData;
-        NewData.DDSToUE(*Data);
-        OnDataChanged.Broadcast(NewData);
-    };
-
-    virtual void* Get() override
-    {
-        return Data;
-    };
-
-    virtual const dds_topic_descriptor_t* GetTypeDesc() override
-    {
-        return &sensor_msgs_msg_Image_desc;
-    };
+    UFUNCTION(BlueprintCallable)
+    void SetData(FROSImage Input);
 
 private:
     sensor_msgs_msg_Image* Data;

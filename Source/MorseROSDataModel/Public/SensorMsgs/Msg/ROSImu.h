@@ -24,31 +24,19 @@
 
 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
+
 USTRUCT(Blueprintable)
 struct FROSImu
 {
     GENERATED_BODY()
-
-public:
-    /**
-    * @cond
-    */
+    
     FROSImu()
     {
         OrientationCovariance.SetNumZeroed(9);
         AngularVelocityCovariance.SetNumZeroed(9);
         LinearAccelerationCovariance.SetNumZeroed(9);
     };
-    /**
-     * @endcond
-     */
 
-    
     UPROPERTY(EditAnywhere)
     FROSHeader Header;
     
@@ -69,39 +57,11 @@ public:
     
     UPROPERTY(EditAnywhere)
     TArray<double> LinearAccelerationCovariance;
-    
 
-    /**
-     * @cond
-     */
-    void DDSToUE (const sensor_msgs_msg_Imu& InData) 
-    {
-        
-        Header.DDSToUE(InData.header);
-        ConvertUtils::DDSQuaternionToUE(InData.orientation, Orientation);
-        ConvertUtils::SequenceToTArray<double, double>(InData.orientation_covariance, OrientationCovariance, 9);
-        ConvertUtils::DDSVectorToUE(InData.angular_velocity, AngularVelocity);
-        ConvertUtils::SequenceToTArray<double, double>(InData.angular_velocity_covariance, AngularVelocityCovariance, 9);
-        ConvertUtils::DDSVectorToUE(InData.linear_acceleration, LinearAcceleration);
-        ConvertUtils::SequenceToTArray<double, double>(InData.linear_acceleration_covariance, LinearAccelerationCovariance, 9);
-    };
-
-    void UEToDDS (sensor_msgs_msg_Imu& OutData) 
-    {
-        Header.UEToDDS(OutData.header);
-        ConvertUtils::UEQuaternionToDDS(Orientation, OutData.orientation);
-        ConvertUtils::TArrayToSequence<double, double>(OrientationCovariance,OutData.orientation_covariance, 9);
-        ConvertUtils::UEVectorToDDS(AngularVelocity,OutData.angular_velocity);
-        ConvertUtils::TArrayToSequence<double, double>(AngularVelocityCovariance, OutData.angular_velocity_covariance, 9);
-        ConvertUtils::UEVectorToDDS(LinearAcceleration, OutData.linear_acceleration);
-        ConvertUtils::TArrayToSequence<double, double>(LinearAccelerationCovariance, OutData.linear_acceleration_covariance, 9);
-    };
     
-    /**
-     * @endcond
-     */
+    void DDSToUE(const sensor_msgs_msg_Imu& InData);
+    void UEToDDS(sensor_msgs_msg_Imu& OutData);
 };
-/** @} */
 
 
 
@@ -117,42 +77,19 @@ public:
     UPROPERTY(BlueprintAssignable)
     FROSImuCallback OnDataChanged;
 
-    virtual void Initialize() override {
-        Data = sensor_msgs_msg_Imu__alloc();
-    };
-
-    virtual void Terminate() override {
-        sensor_msgs_msg_Imu_free(Data, DDS_FREE_ALL);
-    };
-
-    UFUNCTION(BlueprintCallable)
-    void GetData(FROSImu& Output)
-    {
-        Output.DDSToUE(*Data);
-    };
+    /** Begin implement TopicProxy Interface */
+    virtual void Initialize() override;
+    virtual void Terminate() override;
+    virtual const dds_topic_descriptor_t* GetTypeDesc() override;
+    virtual void* Get() override;
+    virtual void ExecuteMessageCallback() override;
+    /** End implement TopicProxy Interface */
 
     UFUNCTION(BlueprintCallable)
-    void SetData(FROSImu Input)
-    {
-        Input.UEToDDS(*Data);
-    };
+    void GetData(FROSImu& Output);
 
-    virtual void ExecuteMessageCallback() override
-    {
-        FROSImu NewData;
-        NewData.DDSToUE(*Data);
-        OnDataChanged.Broadcast(NewData);
-    };
-
-    virtual void* Get() override
-    {
-        return Data;
-    };
-
-    virtual const dds_topic_descriptor_t* GetTypeDesc() override
-    {
-        return &sensor_msgs_msg_Imu_desc;
-    };
+    UFUNCTION(BlueprintCallable)
+    void SetData(FROSImu Input);
 
 private:
     sensor_msgs_msg_Imu* Data;

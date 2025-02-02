@@ -27,27 +27,15 @@
 
 
 
-/** @addtogroup {NameDoxygenMessageContainer}
-  * @brief {NameDoxygenMessageContainer}
-  *
-  * @{
-  */
 USTRUCT(Blueprintable)
 struct FROSPoseWithCovarianceStamped
 {
     GENERATED_BODY()
 
-public:
-    /**
-    * @cond
-    */
     FROSPoseWithCovarianceStamped()
     {
 
     };
-    /**
-     * @endcond
-     */
 
     
     UPROPERTY(EditAnywhere)
@@ -57,28 +45,9 @@ public:
     FROSPoseWithCovariance Pose;
     
 
-    /**
-     * @cond
-     */
-    void DDSToUE (const geometry_msgs_msg_PoseWithCovarianceStamped& InData) 
-    {
-        Header.DDSToUE(InData.header);
-        Pose.DDSToUE(InData.pose);
-    };
-
-    void UEToDDS (geometry_msgs_msg_PoseWithCovarianceStamped& OutData) 
-    {
-        Header.UEToDDS(OutData.header);
-        Pose.UEToDDS(OutData.pose);
-    };
-    
-    /**
-     * @endcond
-     */
+    void DDSToUE(const geometry_msgs_msg_PoseWithCovarianceStamped& InData);
+    void UEToDDS(geometry_msgs_msg_PoseWithCovarianceStamped& OutData);
 };
-/** @} */
-
-
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSPoseWithCovarianceStampedCallback, const FROSPoseWithCovarianceStamped, Data);
 
@@ -87,47 +56,22 @@ class MORSEROSDATAMODEL_API UPoseWithCovarianceStamped_TopicProxy : public UTopi
 {
     GENERATED_BODY()
 
-public:
-
     UPROPERTY(BlueprintAssignable)
     FROSPoseWithCovarianceStampedCallback OnDataChanged;
 
-    virtual void Initialize() override {
-        Data = geometry_msgs_msg_PoseWithCovarianceStamped__alloc();
-    };
-
-    virtual void Terminate() override {
-        geometry_msgs_msg_PoseWithCovarianceStamped_free(Data, DDS_FREE_ALL);
-    };
-
-    UFUNCTION(BlueprintCallable)
-    void GetData(FROSPoseWithCovarianceStamped& Output)
-    {
-        Output.DDSToUE(*Data);
-    };
+    /** Begin implement TopicProxy Interface */
+    virtual void Initialize() override;
+    virtual void Terminate() override;
+    virtual const dds_topic_descriptor_t* GetTypeDesc() override;
+    virtual void* Get() override;
+    virtual void ExecuteMessageCallback() override;
+    /** End implement TopicProxy Interface */
 
     UFUNCTION(BlueprintCallable)
-    void SetData(FROSPoseWithCovarianceStamped Input)
-    {
-        Input.UEToDDS(*Data);
-    };
+    void GetData(FROSPoseWithCovarianceStamped& Output);
 
-    virtual void ExecuteMessageCallback() override
-    {
-        FROSPoseWithCovarianceStamped NewData;
-        NewData.DDSToUE(*Data);
-        OnDataChanged.Broadcast(NewData);
-    };
-
-    virtual void* Get() override
-    {
-        return Data;
-    };
-
-    virtual const dds_topic_descriptor_t* GetTypeDesc() override
-    {
-        return &geometry_msgs_msg_PoseWithCovarianceStamped_desc;
-    };
+    UFUNCTION(BlueprintCallable)
+    void SetData(FROSPoseWithCovarianceStamped Input);
 
 private:
     geometry_msgs_msg_PoseWithCovarianceStamped* Data;

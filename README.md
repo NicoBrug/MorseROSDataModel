@@ -1,16 +1,4 @@
-<div style="display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center; width: 100%;">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=unreal&theme=light" alt="Unreal Engine">
-  </a>
-  <h1 style="margin: 0;">ROS Data Model</h1>
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=ros&theme=light" alt="ROS">
-  </a>
-</div>
-
-
-
-
+<h1 align="center">ROS Data Model</h1>
 <h3 align="center">The ROS Data Model Inside Unreal Engine</h3>
 
 <p align="center">
@@ -73,3 +61,7 @@ If you have any questions, feedback, or inquiries about this project, feel free 
 - **Email**: [nicolasbrugie@gmail.com](mailto:nicolasbrugie@gmail.com)
 - **LinkedIn**: [Brugie Nicolas](https://www.linkedin.com/in/nicolas-brugie/)
 - **GitHub Issues**: [Open an Issue](https://github.com/NicoBrug/MorseROSDataModel/issues)
+
+## 📝 License ##
+
+This project is licensed under the MIT. Please refer to the [LICENSE](LICENSE) file for further details.

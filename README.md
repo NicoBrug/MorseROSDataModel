@@ -1,12 +1,13 @@
-<div style="display: flex; align-items: center; justify-content: center; gap: 30px;">
+<div style="display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center; width: 100%;">
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=unreal&theme=light" alt="Unreal Engine">
   </a>
-  <h1>ROS Data Model</h1>
+  <h1 style="margin: 0;">ROS Data Model</h1>
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=ros&theme=light" alt="ROS">
   </a>
 </div>
+
 
 
 

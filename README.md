@@ -1,9 +1,12 @@
-<h1 align="left">Morse ROS Data Model</h1>
-<h3 align="left">The ROS Data Model Inside Unreal Engine</h3>
+<h1 align="center">ROS Data Model</h1>
+<h3 align="center">The ROS Data Model Inside Unreal Engine</h3>
 
+<p align="center">
+  <a href="" target="_blank"><img alt="Badge showing project license type" src="https://img.shields.io/badge/License-MIT-green.svg"></a>
+  <a href=""><img src="https://img.shields.io/badge/Windows-Supported-blue?logo=windows" alt="Windows Supported OS"></a>
+  <a href=""><img src="https://img.shields.io/badge/Linux-Supported-blue?logo=linux" alt="Linux Supported OS"></a>
+</p>
 
-[![Share](https://img.shields.io/badge/share-000000?logo=x&logoColor=white)](https://x.com/intent/tweet?text=Check%20out%20this%20cool%20project%20on%20GitHub!%20https://github.com/NicoBrug/MorseROSDataModel%20%23UnrealEngine%20%23DDS%20%23Standarts)
-[![Share](https://img.shields.io/badge/share-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/sharing/share-offsite/?url=https://github.com/NicoBrug/MorseROSDataModel)
 
 ## 🚀 Overview
 MorseRosDataModel is an Unreal Engine plugin that implements the ROS Data Model.

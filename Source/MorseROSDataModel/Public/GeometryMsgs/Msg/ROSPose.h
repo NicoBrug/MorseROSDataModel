@@ -37,10 +37,10 @@ struct FROSPose
     };
 
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FROSPoint Position;
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FQuat Orientation;
     
 

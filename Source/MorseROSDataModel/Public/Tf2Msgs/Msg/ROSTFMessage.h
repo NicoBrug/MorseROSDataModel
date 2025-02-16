@@ -37,7 +37,7 @@ struct FROSTFMessage
     };
 
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<FROSTransformStamped> Transforms;
     
 

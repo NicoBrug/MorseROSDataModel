@@ -35,7 +35,7 @@ struct FROSImage
 
     };
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FROSHeader Header;
     
     UPROPERTY(EditAnywhere)
@@ -44,10 +44,10 @@ struct FROSImage
     UPROPERTY(EditAnywhere)
     unsigned int Width;
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FString Encoding;
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     uint8 IsBigendian;
     
     UPROPERTY(EditAnywhere)

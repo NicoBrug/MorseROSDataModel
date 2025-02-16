@@ -39,10 +39,10 @@ struct FROSPoseStamped
     };
 
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FROSHeader Header;
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FROSPose Pose;
     
 

@@ -34,10 +34,10 @@ public:
     };
 
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FString Name;
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<float> Values;
     
     void DDSToUE (const sensor_msgs_msg_ChannelFloat32& InData);

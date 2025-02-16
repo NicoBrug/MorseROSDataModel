@@ -38,10 +38,10 @@ struct FROSPoseWithCovarianceStamped
     };
 
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FROSHeader Header;
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FROSPoseWithCovariance Pose;
     
 

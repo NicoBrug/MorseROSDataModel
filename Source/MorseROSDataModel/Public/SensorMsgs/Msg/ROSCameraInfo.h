@@ -44,28 +44,28 @@ public:
     };
 
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FROSHeader Header;
     
-    UPROPERTY(EditAnywhere)
-    unsigned int Height;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int Height;
     
-    UPROPERTY(EditAnywhere)
-    unsigned int Width;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int Width;
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FString DistortionModel;
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<double> D;
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<double> K;
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<double> R;
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<double> P;
     
     UPROPERTY(EditAnywhere)
@@ -74,7 +74,7 @@ public:
     UPROPERTY(EditAnywhere)
     unsigned int BinningY;
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FROSRegionOfInterest Roi;
 
     void DDSToUE (const sensor_msgs_msg_CameraInfo& InData);

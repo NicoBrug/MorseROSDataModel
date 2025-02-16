@@ -34,19 +34,19 @@ struct FROSPointCloud2
     };
 
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FROSHeader Header;
     
-    UPROPERTY(EditAnywhere)
-    unsigned int Height;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int Height;
     
-    UPROPERTY(EditAnywhere)
-    unsigned int Width;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int Width;
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<FROSPointField> Fields;
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     bool IsBigendian;
     
     UPROPERTY(EditAnywhere)
@@ -55,10 +55,9 @@ struct FROSPointCloud2
     UPROPERTY(EditAnywhere)
     unsigned int RowStep;
     
-    UPROPERTY(EditAnywhere)
     TArray<uint8> Data;
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     bool IsDense;
     
 

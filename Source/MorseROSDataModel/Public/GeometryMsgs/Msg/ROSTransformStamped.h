@@ -35,13 +35,13 @@ struct FROSTransformStamped
 	};
 
     
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FROSHeader Header;
     
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString ChildFrameId;
     
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FROSTransform Transform;
 
 	

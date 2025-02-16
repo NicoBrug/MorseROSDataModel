@@ -29,10 +29,10 @@ struct FROSHeader
 	};
 
     
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FROSTime Stamp;
     
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString FrameId;
     
 

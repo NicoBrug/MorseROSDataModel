@@ -41,7 +41,7 @@ struct FROSNavSatStatus
     static constexpr uint8 ServiceCompass = 4;
     static constexpr uint8 ServiceGalileo = 8;
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     int Status;
     
     UPROPERTY(EditAnywhere)

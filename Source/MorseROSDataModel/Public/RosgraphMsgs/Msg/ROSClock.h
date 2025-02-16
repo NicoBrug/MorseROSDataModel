@@ -35,7 +35,7 @@ struct FROSClock
     };
 
     
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FROSTime Clock;
     
 

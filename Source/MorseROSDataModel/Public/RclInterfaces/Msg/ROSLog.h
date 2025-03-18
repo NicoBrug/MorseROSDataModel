@@ -42,7 +42,7 @@ struct FROSLog
     FROSTime Stamp;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    uint8 Level;
+    uint8 Level = 0;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FString Name;
@@ -57,7 +57,7 @@ struct FROSLog
     FString Function;
     
     UPROPERTY(EditAnywhere)
-    unsigned int Line;
+    unsigned int Line = 0;
     
 
     void DDSToUE(const rcl_interfaces_msg_Log& InData);

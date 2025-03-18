@@ -41,19 +41,19 @@ struct FROSImu
     FROSHeader Header;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FQuat Orientation;
+    FQuat Orientation = FQuat::Identity;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<double> OrientationCovariance;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FVector AngularVelocity;
+    FVector AngularVelocity = FVector::ZeroVector;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<double> AngularVelocityCovariance;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FVector LinearAcceleration;
+    FVector LinearAcceleration = FVector::ZeroVector;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<double> LinearAccelerationCovariance;

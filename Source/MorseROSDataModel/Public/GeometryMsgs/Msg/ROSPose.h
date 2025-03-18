@@ -41,7 +41,7 @@ struct FROSPose
     FROSPoint Position;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FQuat Orientation;
+    FQuat Orientation = FQuat::Identity;
     
 
     void DDSToUE(const geometry_msgs_msg_Pose& InData);

@@ -48,10 +48,10 @@ public:
     FROSHeader Header;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int Height;
+    int Height = 1920;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int Width;
+    int Width = 1080;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FString DistortionModel;
@@ -69,10 +69,10 @@ public:
     TArray<double> P;
     
     UPROPERTY(EditAnywhere)
-    unsigned int BinningX;
+    unsigned int BinningX = 0;
     
     UPROPERTY(EditAnywhere)
-    unsigned int BinningY;
+    unsigned int BinningY = 0;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FROSRegionOfInterest Roi;

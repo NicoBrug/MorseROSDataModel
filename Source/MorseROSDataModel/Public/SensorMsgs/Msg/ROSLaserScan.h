@@ -38,25 +38,25 @@ struct FROSLaserScan
     FROSHeader Header;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    float AngleMin;
+    float AngleMin = 0.0f;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    float AngleMax;
+    float AngleMax =0.0f;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    float AngleIncrement;
+    float AngleIncrement = 0.0f;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    float TimeIncrement;
+    float TimeIncrement = 0.0f;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    float ScanTime;
+    float ScanTime = 0.0f;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    float RangeMin;
+    float RangeMin = 0.0f;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    float RangeMax;
+    float RangeMax = 0.0f;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<float> Ranges;

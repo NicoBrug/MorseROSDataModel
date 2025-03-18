@@ -39,19 +39,19 @@ struct FROSImage
     FROSHeader Header;
     
     UPROPERTY(EditAnywhere)
-    unsigned int Height;
+    unsigned int Height = 1920;
     
     UPROPERTY(EditAnywhere)
-    unsigned int Width;
+    unsigned int Width = 1080;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FString Encoding;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    uint8 IsBigendian;
+    uint8 IsBigendian = 0;
     
     UPROPERTY(EditAnywhere)
-    unsigned int Step;
+    unsigned int Step = 0;
     
     TArray<uint8> Data;
     

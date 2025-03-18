@@ -42,10 +42,10 @@ struct FROSNavSatStatus
     static constexpr uint8 ServiceGalileo = 8;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int Status;
+    int Status = StatusNoFix;
     
     UPROPERTY(EditAnywhere)
-    uint16 Service;
+    uint16 Service = 0;
 
     
     void DDSToUE (const sensor_msgs_msg_NavSatStatus& InData);

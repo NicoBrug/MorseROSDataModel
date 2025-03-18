@@ -34,10 +34,10 @@ struct FROSTransform
 
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FVector Translation;
+    FVector Translation = FVector::ZeroVector;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FQuat Rotation;
+    FQuat Rotation = FQuat::Identity;
     
 
     void DDSToUE(const geometry_msgs_msg_Transform& InData);

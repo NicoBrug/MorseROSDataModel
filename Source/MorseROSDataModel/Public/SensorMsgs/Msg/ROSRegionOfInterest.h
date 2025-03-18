@@ -37,19 +37,19 @@ struct FROSRegionOfInterest
 
     
     UPROPERTY(EditAnywhere)
-    unsigned int XOffset;
+    unsigned int XOffset = 0;
     
     UPROPERTY(EditAnywhere)
-    unsigned int YOffset;
+    unsigned int YOffset = 0;
     
     UPROPERTY(EditAnywhere)
-    unsigned int Height;
+    unsigned int Height = 0;
     
     UPROPERTY(EditAnywhere)
-    unsigned int Width;
+    unsigned int Width = 0;
     
     UPROPERTY(EditAnywhere)
-    bool DoRectify;
+    bool DoRectify = false;
     
 
     void DDSToUE(const sensor_msgs_msg_RegionOfInterest& InData);

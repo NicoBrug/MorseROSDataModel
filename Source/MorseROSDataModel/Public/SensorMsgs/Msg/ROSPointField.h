@@ -47,13 +47,13 @@ struct FROSPointField
     FString Name;
     
     UPROPERTY(EditAnywhere)
-    unsigned int Offset;
+    unsigned int Offset = 0;
     
     UPROPERTY(EditAnywhere)
-    EROSPointFieldType Datatype;
+    EROSPointFieldType Datatype = EROSPointFieldType::INT8;
     
     UPROPERTY(EditAnywhere)
-    unsigned int Count;
+    unsigned int Count = 0;
     
 
     void DDSToUE(const sensor_msgs_msg_PointField& InData);

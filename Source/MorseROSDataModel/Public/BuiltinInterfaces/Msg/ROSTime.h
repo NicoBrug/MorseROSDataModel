@@ -31,10 +31,10 @@ struct FROSTime
 
     
     UPROPERTY(EditAnywhere)
-    int32 Sec;
+    int32 Sec = 0;
     
     UPROPERTY(EditAnywhere)
-    unsigned int Nanosec;
+    unsigned int Nanosec = 0;
     
 
     void DDSToUE(const builtin_interfaces_msg_Time& InData);

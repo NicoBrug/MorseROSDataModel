@@ -38,27 +38,27 @@ struct FROSPointCloud2
     FROSHeader Header;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int Height;
+    int Height = 0;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int Width;
+    int Width = 0;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<FROSPointField> Fields;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    bool IsBigendian;
+    bool IsBigendian = false;
     
     UPROPERTY(EditAnywhere)
-    unsigned int PointStep;
+    unsigned int PointStep = 0;
     
     UPROPERTY(EditAnywhere)
-    unsigned int RowStep;
+    unsigned int RowStep = 0;
     
     TArray<uint8> Data;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    bool IsDense;
+    bool IsDense = false;
     
 
     void DDSToUE (const sensor_msgs_msg_PointCloud2& InData);

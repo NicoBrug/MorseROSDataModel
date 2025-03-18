@@ -48,20 +48,19 @@ struct FROSNavSatFix
     FROSNavSatStatus Status;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    double Latitude;
+    double Latitude = 0.0;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    double Longitude;
+    double Longitude = 0.0;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    double Altitude;
+    double Altitude = 0.0;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<double> PositionCovariance;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    uint8 PositionCovarianceType;
-    
+    uint8 PositionCovarianceType = CovarianceTypeUnknown;
     
     void DDSToUE(const sensor_msgs_msg_NavSatFix& InData);
     void UEToDDS(sensor_msgs_msg_NavSatFix& OutData);

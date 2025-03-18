@@ -37,13 +37,13 @@ struct FROSPoint
 
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    double X;
+    double X = 0.0;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    double Y;
+    double Y = 0.0;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    double Z;
+    double Z = 0.0;
     
 
     void DDSToUE(const geometry_msgs_msg_Point& InData);

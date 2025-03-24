@@ -73,6 +73,7 @@ class MORSEROSDATAMODEL_API UPointCloud2_TopicProxy : public UTopicProxy
 {
     GENERATED_BODY()
 
+public:
     UPROPERTY(BlueprintAssignable)
     FROSPointCloud2Callback OnDataChanged;
 

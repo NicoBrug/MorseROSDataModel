@@ -35,7 +35,10 @@ struct FROSTFMessage
     {
 
     };
-
+    
+    FROSTFMessage(const TArray<FROSTransformStamped>& InTransforms)
+        : Transforms(InTransforms)
+    {}
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<FROSTransformStamped> Transforms;
@@ -54,6 +57,8 @@ class MORSEROSDATAMODEL_API UTFMessage_TopicProxy : public UTopicProxy
 {
     GENERATED_BODY()
 
+public:
+    
     UPROPERTY(BlueprintAssignable)
     FROSTFMessageCallback OnDataChanged;
 
@@ -64,7 +69,7 @@ class MORSEROSDATAMODEL_API UTFMessage_TopicProxy : public UTopicProxy
     virtual void* Get() override;
     virtual void ExecuteMessageCallback() override;
     /** End implement TopicProxy Interface */
-
+    
     UFUNCTION(BlueprintCallable)
     void GetData(FROSTFMessage& Output);
 

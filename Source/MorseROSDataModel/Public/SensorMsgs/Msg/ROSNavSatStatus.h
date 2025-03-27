@@ -17,7 +17,65 @@
 
 #include "ROSNavSatStatus.generated.h" 
 
+/**
+ * @namespace ROSNavSatStatus
+ * @brief Namespace containing ROS-compatible navigation satellite status constants
+ * 
+ * These constants follow the ROS sensor_msgs/NavSatStatus message specification
+ */
+namespace ROSNavSatStatus
+{
+    constexpr int8 STATUS_NO_FIX = -1;    ///< No GPS fix available
+    constexpr int8 STATUS_FIX = 0;        ///< Unaugmented GPS fix
+    constexpr int8 STATUS_SBAS_FIX = 1;   ///< Satellite-based augmentation fix
+    constexpr int8 STATUS_GBAS_FIX = 2;   ///< Ground-based augmentation fix
+}
 
+/**
+ * @enum EROSNavSatStatus
+ * @brief Blueprint-compatible navigation satellite status enumeration
+ * 
+ * Maps to ROSNavSatStatus values but uses uint8 for Unreal Blueprint compatibility
+ */
+UENUM(BlueprintType)
+enum class EROSNavSatStatus : uint8
+{
+    NoFix = 0     UMETA(DisplayName = "No Fix (STATUS_NO_FIX)"),    ///< No GPS fix available
+    Fix = 1       UMETA(DisplayName = "Fix (STATUS_FIX)"),          ///< Standard GPS fix
+    SBASFix = 2   UMETA(DisplayName = "SBAS Fix (STATUS_SBAS_FIX)"),///< SBAS-augmented fix
+    GBASFix = 3   UMETA(DisplayName = "GBAS Fix (STATUS_GBAS_FIX)") ///< GBAS-augmented fix
+};
+
+/**
+ * @namespace ROSNavSatService
+ * @brief Namespace containing ROS-compatible satellite service type constants
+ * 
+ * These bitmask values follow the ROS sensor_msgs/NavSatStatus message specification
+ */
+namespace ROSNavSatService
+{
+    constexpr uint16 SERVICE_GPS = 1;     ///< GPS satellite system
+    constexpr uint16 SERVICE_GLONASS = 2; ///< GLONASS satellite system
+    constexpr uint16 SERVICE_COMPASS = 4; ///< BeiDou/Compass satellite system
+    constexpr uint16 SERVICE_GALILEO = 8; ///< Galileo satellite system
+}
+
+/**
+ * @enum EROSNavSatService
+ * @brief Blueprint-compatible satellite service type enumeration
+ * 
+ * Bitmask enumeration that maps to ROSNavSatService values but uses uint8 
+ * for Unreal Blueprint compatibility. Can be combined using bitwise operations.
+ */
+UENUM(BlueprintType, Meta = (Bitflags))
+enum class EROSNavSatService : uint8
+{
+    None = 0     UMETA(Hidden),                     ///< No services (hidden in editor)
+    GPS = 1      UMETA(DisplayName = "GPS (SERVICE_GPS)"),          ///< GPS service
+    GLONASS = 2  UMETA(DisplayName = "GLONASS (SERVICE_GLONASS)"),  ///< GLONASS service
+    Compass = 4  UMETA(DisplayName = "Compass (SERVICE_COMPASS)"),  ///< BeiDou/Compass service
+    Galileo = 8  UMETA(DisplayName = "Galileo (SERVICE_GALILEO)")   ///< Galileo service
+};
 
 USTRUCT(Blueprintable)
 struct FROSNavSatStatus
@@ -29,24 +87,11 @@ struct FROSNavSatStatus
 
     };
 
-    // Status constants
-    static constexpr int8 StatusNoFix = -1;
-    static constexpr int8 StatusFix = 0;
-    static constexpr int8 StatusSBASFix = 1;
-    static constexpr int8 StatusGBASFix = 2;
-
-    // Service constants
-    static constexpr uint8 ServiceGPS = 1;
-    static constexpr uint8 ServiceGLONASS = 2;
-    static constexpr uint8 ServiceCompass = 4;
-    static constexpr uint8 ServiceGalileo = 8;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    EROSNavSatStatus Status = EROSNavSatStatus::NoFix;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int Status = StatusNoFix;
-    
-    UPROPERTY(EditAnywhere)
-    uint16 Service = 0;
-
+    EROSNavSatService Service = EROSNavSatService::GPS;
     
     void DDSToUE (const sensor_msgs_msg_NavSatStatus& InData);
     void UEToDDS (sensor_msgs_msg_NavSatStatus& OutData);

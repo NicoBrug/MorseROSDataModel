@@ -11,7 +11,7 @@
 
 #pragma once 
 #include "CoreMinimal.h" 
-#include "Topic/TopicProxy.h"
+#include "Topic/MRSTopicProxy.h"
 
 #include "sensor_msgs/msg/NavSatStatus.h"
 
@@ -101,7 +101,7 @@ struct FROSNavSatStatus
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSNavSatStatusCallback, const FROSNavSatStatus, Data);
 
 UCLASS(BlueprintType, Blueprintable)
-class MORSEROSDATAMODEL_API UNavSatStatus_TopicProxy : public UTopicProxy
+class MORSEROSDATAMODEL_API UNavSatStatus_TopicProxy : public UMRSTopicProxy
 {
     GENERATED_BODY()
 

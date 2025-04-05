@@ -11,7 +11,7 @@
 
 #pragma once 
 #include "CoreMinimal.h" 
-#include "Topic/TopicProxy.h"
+#include "Topic/MRSTopicProxy.h"
 #include "Utils/ConvertUtils.h"
 
 
@@ -52,7 +52,7 @@ struct FROSPoseWithCovarianceStamped
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSPoseWithCovarianceStampedCallback, const FROSPoseWithCovarianceStamped, Data);
 
 UCLASS(BlueprintType, Blueprintable)
-class MORSEROSDATAMODEL_API UPoseWithCovarianceStamped_TopicProxy : public UTopicProxy
+class MORSEROSDATAMODEL_API UPoseWithCovarianceStamped_TopicProxy : public UMRSTopicProxy
 {
     GENERATED_BODY()
 

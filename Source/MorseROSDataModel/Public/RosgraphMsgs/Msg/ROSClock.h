@@ -11,7 +11,7 @@
 
 #pragma once 
 #include "CoreMinimal.h" 
-#include "Topic/TopicProxy.h"
+#include "Topic/MRSTopicProxy.h"
 #include "Utils/ConvertUtils.h"
 
 #include "rosgraph_msgs/msg/Clock.h"
@@ -47,7 +47,7 @@ struct FROSClock
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSClockCallback, const FROSClock, Data);
 
 UCLASS(BlueprintType, Blueprintable)
-class MORSEROSDATAMODEL_API UClock_TopicProxy : public UTopicProxy
+class MORSEROSDATAMODEL_API UClock_TopicProxy : public UMRSTopicProxy
 {
     GENERATED_BODY()
 

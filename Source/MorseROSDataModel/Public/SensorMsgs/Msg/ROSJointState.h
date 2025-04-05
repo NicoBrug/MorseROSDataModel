@@ -11,7 +11,7 @@
 
 #pragma once 
 #include "CoreMinimal.h" 
-#include "Topic/TopicProxy.h"
+#include "Topic/MRSTopicProxy.h"
 #include "Utils/ConvertUtils.h"
 
 
@@ -61,7 +61,7 @@ struct FROSJointState
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSJointStateCallback, const FROSJointState, Data);
 
 UCLASS(BlueprintType, Blueprintable)
-class MORSEROSDATAMODEL_API UJointState_TopicProxy : public UTopicProxy
+class MORSEROSDATAMODEL_API UJointState_TopicProxy : public UMRSTopicProxy
 {
     GENERATED_BODY()
 

@@ -11,7 +11,7 @@
 
 #pragma once 
 #include "CoreMinimal.h" 
-#include "Topic/TopicProxy.h"
+#include "Topic/MRSTopicProxy.h"
 #include "Utils/ConvertUtils.h"
 
 
@@ -51,7 +51,7 @@ struct FROSPointStamped
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSPointStampedCallback, const FROSPointStamped, Data);
 
 UCLASS(BlueprintType, Blueprintable)
-class MORSEROSDATAMODEL_API UPointStamped_TopicProxy : public UTopicProxy
+class MORSEROSDATAMODEL_API UPointStamped_TopicProxy : public UMRSTopicProxy
 {
     GENERATED_BODY()
 

@@ -112,10 +112,25 @@ public:
     }
 
     template<typename TSequence, typename T>
-    static void StrTArrayToSequence(TArray<T>& InArray, TSequence* OutSequence, const int size) //need const ?? const TArray<T>& InArray
+    static void StrTArrayToSequence(const TArray<T>& InArray, TSequence* OutSequence, const int size) //need const ?? const TArray<T>& InArray
     {
         for (int i = 0; i < size; ++i) {
             UEStringToDDS(InArray[i], OutSequence[i]);
         }
     }
+
+    static void VectorSequenceToTArray( geometry_msgs_msg_Vector3* InSequence, TArray<FVector>& OutArray, const int size) //need const ?? const TArray<T>& InArray
+    {
+            OutArray.Reserve(size);
+            for (int i = 0; i < size; ++i) {
+                DDSVectorToUE(InSequence[i], OutArray[i]);
+            }
+    };
+
+    static void VectorTArrayToSequence( TArray<FVector>& InArray, geometry_msgs_msg_Vector3* OutSequence, const int size) //need const ?? const TArray<T>& InArray
+    {
+        for (int i = 0; i < size; ++i) {
+            UEVectorToDDS(InArray[i], OutSequence[i]);
+        }
+    };
 };

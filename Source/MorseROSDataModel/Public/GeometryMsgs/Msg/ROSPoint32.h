@@ -11,7 +11,7 @@
 
 #pragma once 
 #include "CoreMinimal.h" 
-#include "Topic/TopicProxy.h"
+#include "Topic/MRSTopicProxy.h"
 #include "Utils/ConvertUtils.h"
 
 #include "geometry_msgs/msg/Point32.h"
@@ -52,7 +52,7 @@ struct FROSPoint32
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSPoint32Callback, const FROSPoint32, Data);
 
 UCLASS(BlueprintType, Blueprintable)
-class MORSEROSDATAMODEL_API UPoint32_TopicProxy : public UTopicProxy
+class MORSEROSDATAMODEL_API UPoint32_TopicProxy : public UMRSTopicProxy
 {
     GENERATED_BODY()
 

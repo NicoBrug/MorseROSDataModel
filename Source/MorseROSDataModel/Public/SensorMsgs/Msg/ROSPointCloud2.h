@@ -11,7 +11,7 @@
 
 #pragma once 
 #include "CoreMinimal.h" 
-#include "Topic/TopicProxy.h"
+#include "Topic/MRSTopicProxy.h"
 #include "Utils/ConvertUtils.h"
 
 #include "sensor_msgs/msg/PointCloud2.h"
@@ -69,11 +69,12 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSPointCloud2Callback, const FROSP
 
 
 UCLASS(BlueprintType, Blueprintable)
-class MORSEROSDATAMODEL_API UPointCloud2_TopicProxy : public UTopicProxy
+class MORSEROSDATAMODEL_API UPointCloud2_TopicProxy : public UMRSTopicProxy
 {
     GENERATED_BODY()
 
 public:
+    
     UPROPERTY(BlueprintAssignable)
     FROSPointCloud2Callback OnDataChanged;
 

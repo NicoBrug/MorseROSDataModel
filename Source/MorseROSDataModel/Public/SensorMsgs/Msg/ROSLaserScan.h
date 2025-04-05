@@ -11,7 +11,7 @@
 
 #pragma once 
 #include "CoreMinimal.h" 
-#include "Topic/TopicProxy.h"
+#include "Topic/MRSTopicProxy.h"
 #include "Utils/ConvertUtils.h"
 
 
@@ -74,7 +74,7 @@ struct FROSLaserScan
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSLaserScanCallback, const FROSLaserScan, Data);
 
 UCLASS(BlueprintType, Blueprintable)
-class MORSEROSDATAMODEL_API ULaserScan_TopicProxy : public UTopicProxy
+class MORSEROSDATAMODEL_API ULaserScan_TopicProxy : public UMRSTopicProxy
 {
     GENERATED_BODY()
 

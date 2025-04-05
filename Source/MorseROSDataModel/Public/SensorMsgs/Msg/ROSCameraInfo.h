@@ -11,7 +11,7 @@
 
 #pragma once 
 #include "CoreMinimal.h" 
-#include "Topic/TopicProxy.h"
+#include "Topic/MRSTopicProxy.h"
 #include "Utils/ConvertUtils.h"
 
 
@@ -87,7 +87,7 @@ public:
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSCameraInfoCallback, const FROSCameraInfo, Data);
 
 UCLASS(BlueprintType, Blueprintable)
-class MORSEROSDATAMODEL_API UCameraInfo_TopicProxy : public UTopicProxy
+class MORSEROSDATAMODEL_API UCameraInfo_TopicProxy : public UMRSTopicProxy
 {
     GENERATED_BODY()
 

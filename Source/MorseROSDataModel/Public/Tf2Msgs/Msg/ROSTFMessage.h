@@ -11,7 +11,7 @@
 
 #pragma once 
 #include "CoreMinimal.h" 
-#include "Topic/TopicProxy.h"
+#include "Topic/MRSTopicProxy.h"
 #include "Utils/ConvertUtils.h"
 
 
@@ -53,7 +53,7 @@ struct FROSTFMessage
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSTFMessageCallback, const FROSTFMessage, Data);
 
 UCLASS(BlueprintType, Blueprintable)
-class MORSEROSDATAMODEL_API UTFMessage_TopicProxy : public UTopicProxy
+class MORSEROSDATAMODEL_API UTFMessage_TopicProxy : public UMRSTopicProxy
 {
     GENERATED_BODY()
 

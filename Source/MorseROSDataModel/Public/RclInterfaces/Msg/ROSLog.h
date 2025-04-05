@@ -69,7 +69,7 @@ struct FROSLog
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSLogCallback, const FROSLog, Data);
 
 UCLASS(BlueprintType, Blueprintable)
-class MORSEROSDATAMODEL_API ULog_TopicProxy : public UTopicProxy
+class MORSEROSDATAMODEL_API ULog_TopicProxy : public UMRSTopicProxy
 {
     GENERATED_BODY()
 

@@ -11,7 +11,7 @@
 
 #pragma once 
 #include "CoreMinimal.h" 
-#include "Topic/TopicProxy.h"
+#include "Topic/MRSTopicProxy.h"
 #include "Utils/ConvertUtils.h"
 
 #include "sensor_msgs/msg/Imu.h"
@@ -68,7 +68,7 @@ struct FROSImu
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FROSImuCallback, const FROSImu, Data);
 
 UCLASS(BlueprintType, Blueprintable)
-class MORSEROSDATAMODEL_API UImu_TopicProxy : public UTopicProxy
+class MORSEROSDATAMODEL_API UImu_TopicProxy : public UMRSTopicProxy
 {
     GENERATED_BODY()
 

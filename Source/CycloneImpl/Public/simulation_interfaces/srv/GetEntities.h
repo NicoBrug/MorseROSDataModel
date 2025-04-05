@@ -9,9 +9,9 @@
 #ifndef DDSC_C__DEV_DATATYPES_COMPILED_SIMULATION_INTERFACES_SRV_GETENTITIES_H_C536E82DC198237E01DE28CCDDAB7FF6
 #define DDSC_C__DEV_DATATYPES_COMPILED_SIMULATION_INTERFACES_SRV_GETENTITIES_H_C536E82DC198237E01DE28CCDDAB7FF6
 
-#include "simulation_interfaces\msg\EntityFilters.h"
+#include "simulation_interfaces/msg/EntityFilters.h"
 
-#include "simulation_interfaces\msg\Result.h"
+#include "simulation_interfaces/msg/Result.h"
 
 #include "dds/ddsc/dds_public_impl.h"
 

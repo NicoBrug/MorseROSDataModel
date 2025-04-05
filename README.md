@@ -15,7 +15,7 @@ It does not contain a direct dependency on ROS and uses the Morse Core, based on
 
 Here is a list of the implemented ROS data model:
 
-
+Ros Messages : 
 | Module           	| Data Type            	| Implementation 	|
 |------------------	|---------------------------	|----------------	|
 | BuiltinInterface 	| Duration                  	| ✅              	|
@@ -52,7 +52,18 @@ Here is a list of the implemented ROS data model:
 | Sensor           	| LaserEcho                 	| 🔜              	|
 | Sensor           	| MagneticField             	| 🔜              	|
 | Sensor           	| BatteryState              	| 🔜              	|
+| SimulationInterfaces           	| Bounds              	| ✅              	|
+| SimulationInterfaces           	| EntityCategory              	| ✅              	|
+| SimulationInterfaces           	| Result              	| ✅              	|
+| SimulationInterfaces           	| TagFilter              	| ✅              	|
+| SimulationInterfaces           	| EntityFilter              	| ✅              	|
 
+Ros Services : 
+| Module           	| Data Type            	| Implementation 	 |
+|------------------	|-----------------------|----------------  |
+| SimulationInterfaces 	| SpawnEntity       | ✅              |
+| SimulationInterfaces 	| DeleteEntity      | ✅             |
+| SimulationInterfaces 	| GetEntity         | ✅             |
 
 ## 📫 Contact
 

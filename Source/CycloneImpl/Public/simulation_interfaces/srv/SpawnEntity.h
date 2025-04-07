@@ -9,9 +9,9 @@
 #ifndef DDSC_C__DEV_DATATYPES_COMPILED_SIMULATION_INTERFACES_SRV_SPAWNENTITY_H_1A6792BF50A937CF63033E5FBAC3C369
 #define DDSC_C__DEV_DATATYPES_COMPILED_SIMULATION_INTERFACES_SRV_SPAWNENTITY_H_1A6792BF50A937CF63033E5FBAC3C369
 
-#include "geometry_msgs\msg\PoseStamped.h"
+#include "geometry_msgs/msg/PoseStamped.h"
 
-#include "simulation_interfaces\msg\Result.h"
+#include "simulation_interfaces/msg/Result.h"
 
 #include "dds/ddsc/dds_public_impl.h"
 

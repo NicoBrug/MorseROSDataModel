@@ -9,11 +9,11 @@
 #ifndef DDSC_C__DEV_DATATYPES_COMPILED_SIMULATION_INTERFACES_MSG_ENTITYFILTERS_H_2B41CC0C483D0BF689FDDBCD275CD510
 #define DDSC_C__DEV_DATATYPES_COMPILED_SIMULATION_INTERFACES_MSG_ENTITYFILTERS_H_2B41CC0C483D0BF689FDDBCD275CD510
 
-#include "simulation_interfaces\msg\Bounds.h"
+#include "simulation_interfaces/msg/Bounds.h"
 
-#include "simulation_interfaces\msg\EntityCategory.h"
+#include "simulation_interfaces/msg/EntityCategory.h"
 
-#include "simulation_interfaces\msg\TagsFilter.h"
+#include "simulation_interfaces/msg/TagsFilter.h"
 
 #include "dds/ddsc/dds_public_impl.h"
 

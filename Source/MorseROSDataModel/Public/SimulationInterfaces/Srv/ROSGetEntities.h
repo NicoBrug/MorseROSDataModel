@@ -49,6 +49,8 @@ class MORSEROSDATAMODEL_API UGetEntities_Request_TopicProxy : public UMRSTopicPr
 {
     GENERATED_BODY()
 
+public:
+    
     UPROPERTY(BlueprintAssignable)
     FROSGetEntities_RequestCallback OnDataChanged;
 
@@ -99,6 +101,9 @@ class MORSEROSDATAMODEL_API UGetEntities_Response_TopicProxy : public UMRSTopicP
 {
     GENERATED_BODY()
 
+    
+public:
+    
     UPROPERTY(BlueprintAssignable)
     FROSGetEntities_ResponseCallback OnDataChanged;
 
